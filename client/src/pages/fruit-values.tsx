@@ -31,40 +31,42 @@ function FruitCard({ fruit }: { fruit: FruitData }) {
   };
 
   return (
-    <div className={`border-2 rounded-lg p-4 hover:scale-105 transition-transform ${rarityColors[fruit.rarity]}`}>
-      <div className="flex items-center space-x-3 mb-3">
-        <img src={fruit.imageUrl} alt={fruit.name} className="w-12 h-12 rounded-lg" />
-        <div className="flex-1">
-          <h3 className="font-semibold text-sm">{fruit.name}</h3>
-          <p className="text-xs text-muted-foreground">{fruit.rarity} • {fruit.type}</p>
+    <Link href={`/fruit/${encodeURIComponent(fruit.name)}`}>
+      <div className={`border-2 rounded-lg p-4 hover:scale-105 transition-transform cursor-pointer ${rarityColors[fruit.rarity]}`} data-testid={`fruit-card-${fruit.name.toLowerCase().replace(/\s+/g, '-')}`}>
+        <div className="flex items-center space-x-3 mb-3">
+          <img src={fruit.imageUrl} alt={fruit.name} className="w-12 h-12 rounded-lg" />
+          <div className="flex-1">
+            <h3 className="font-semibold text-sm">{fruit.name}</h3>
+            <p className="text-xs text-muted-foreground">{fruit.rarity} • {fruit.type}</p>
+          </div>
+        </div>
+        
+        <div className="space-y-2 text-sm">
+          <div className="flex justify-between">
+            <span className="text-muted-foreground">Value:</span>
+            <span className="font-bold text-primary">{formatValue(fruit.value)}</span>
+          </div>
+          <div className="flex justify-between">
+            <span className="text-muted-foreground">Permanent:</span>
+            <span className="font-bold text-accent">{formatValue(fruit.permanentValue)}</span>
+          </div>
+          <div className="flex justify-between">
+            <span className="text-muted-foreground">Demand:</span>
+            <span className="font-medium">{fruit.demand}/10</span>
+          </div>
+          <div className="flex justify-between">
+            <span className="text-muted-foreground">Trend:</span>
+            <span className={`font-medium ${trendColors[fruit.trend]}`}>{fruit.trend}</span>
+          </div>
+          <div className="flex justify-between">
+            <span className="text-muted-foreground">Stock:</span>
+            <span className={fruit.inStock ? "text-green-500" : "text-red-500"}>
+              {fruit.inStock ? "In Stock" : "Out of Stock"}
+            </span>
+          </div>
         </div>
       </div>
-      
-      <div className="space-y-2 text-sm">
-        <div className="flex justify-between">
-          <span className="text-muted-foreground">Value:</span>
-          <span className="font-bold text-primary">{formatValue(fruit.value)}</span>
-        </div>
-        <div className="flex justify-between">
-          <span className="text-muted-foreground">Permanent:</span>
-          <span className="font-bold text-accent">{formatValue(fruit.permanentValue)}</span>
-        </div>
-        <div className="flex justify-between">
-          <span className="text-muted-foreground">Demand:</span>
-          <span className="font-medium">{fruit.demand}/10</span>
-        </div>
-        <div className="flex justify-between">
-          <span className="text-muted-foreground">Trend:</span>
-          <span className={`font-medium ${trendColors[fruit.trend]}`}>{fruit.trend}</span>
-        </div>
-        <div className="flex justify-between">
-          <span className="text-muted-foreground">Stock:</span>
-          <span className={fruit.inStock ? "text-green-500" : "text-red-500"}>
-            {fruit.inStock ? "In Stock" : "Out of Stock"}
-          </span>
-        </div>
-      </div>
-    </div>
+    </Link>
   );
 }
 

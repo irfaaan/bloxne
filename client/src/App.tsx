@@ -7,6 +7,7 @@ import Navigation from "@/components/Navigation";
 import Calculator from "@/pages/calculator";
 import FruitValues from "@/pages/fruit-values";
 import CategoryPage from "@/pages/category";
+import FruitDetail from "@/pages/fruit-detail";
 import NotFound from "@/pages/not-found";
 
 function Router() {
@@ -17,6 +18,7 @@ function Router() {
         <Route path="/" component={Calculator} />
         <Route path="/values" component={FruitValues} />
         <Route path="/values/:category" component={CategoryPage} />
+        <Route path="/fruit/:name" component={FruitDetail} />
         <Route component={NotFound} />
       </Switch>
     </div>
