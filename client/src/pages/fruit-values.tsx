@@ -90,10 +90,22 @@ function getRarityStyle(rarity: string) {
   return rarityStyles[rarity as keyof typeof rarityStyles] || "";
 }
 
+function getRarityColors(rarity: string) {
+  const rarityColors = {
+    Mythical: "bg-purple-500/20 text-purple-600 dark:text-purple-400 border border-purple-500/50",
+    Legendary: "bg-orange-500/20 text-orange-600 dark:text-orange-400 border border-orange-500/50",
+    Rare: "bg-blue-500/20 text-blue-600 dark:text-blue-400 border border-blue-500/50",
+    Uncommon: "bg-green-500/20 text-green-600 dark:text-green-400 border border-green-500/50",
+    Common: "bg-gray-500/20 text-gray-600 dark:text-gray-400 border border-gray-500/50"
+  };
+  return rarityColors[rarity as keyof typeof rarityColors] || "";
+}
+
 export default function FruitValues() {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCategory, setSelectedCategory] = useState<string>("all");
   const [selectedRarity, setSelectedRarity] = useState<string>("all");
+  const [viewMode, setViewMode] = useState<"cards" | "table">("cards");
 
   // Filter fruits based on search, category, and rarity
   const getFilteredFruits = (fruits: FruitData[]) => {
@@ -101,6 +113,19 @@ export default function FruitValues() {
       fruit.name.toLowerCase().includes(searchTerm.toLowerCase()) &&
       (selectedRarity === "all" || fruit.rarity === selectedRarity)
     );
+  };
+
+  // Get all fruits for table view
+  const getAllFilteredFruits = () => {
+    let allFruits = Object.values(fruitsDatabase);
+    
+    // Apply category filter
+    if (selectedCategory !== "all") {
+      allFruits = allFruits.filter(fruit => fruit.type === selectedCategory);
+    }
+    
+    // Apply other filters
+    return getFilteredFruits(allFruits);
   };
 
   const categories = ["all", "Natural", "Elemental", "Beast", "Logia"];
@@ -119,7 +144,7 @@ export default function FruitValues() {
 
       {/* Search and Filter Controls */}
       <div className="flex flex-col gap-4 mb-8">
-        <div className="flex flex-col sm:flex-row gap-4">
+        <div className="flex flex-col sm:flex-row gap-4 items-center">
           <div className="flex-1">
             <Input
               placeholder="Search fruits..."
@@ -128,6 +153,28 @@ export default function FruitValues() {
               className="w-full"
               data-testid="fruit-search"
             />
+          </div>
+          
+          {/* View Mode Toggle */}
+          <div className="flex items-center gap-2 bg-muted p-1 rounded-lg">
+            <Button
+              variant={viewMode === "cards" ? "default" : "ghost"}
+              size="sm"
+              onClick={() => setViewMode("cards")}
+              data-testid="cards-view"
+            >
+              <i className="fas fa-th-large mr-2"></i>
+              Cards
+            </Button>
+            <Button
+              variant={viewMode === "table" ? "default" : "ghost"}
+              size="sm"
+              onClick={() => setViewMode("table")}
+              data-testid="table-view"
+            >
+              <i className="fas fa-table mr-2"></i>
+              Table
+            </Button>
           </div>
         </div>
         
@@ -192,40 +239,106 @@ export default function FruitValues() {
       </div>
 
       {/* Fruits Display */}
-      {selectedCategory === "all" ? (
-        // Show all categories or filtered by rarity
-        Object.entries(categorizedFruits).map(([category, fruits]) => {
-          const filteredFruits = getFilteredFruits(fruits);
-          if (filteredFruits.length === 0 && (searchTerm || selectedRarity !== "all")) return null;
+      {viewMode === "table" ? (
+        // Table View
+        <div className="bg-card rounded-lg border overflow-hidden">
+          <div className="bg-muted px-6 py-4">
+            <h2 className="text-lg font-semibold">Fruit Values Table</h2>
+          </div>
           
-          return (
-            <div key={category} className="mb-12">
-              <div className="flex items-center justify-between mb-6">
-                <h2 className="text-2xl font-bold text-foreground">{category}</h2>
-                <Link href={`/values/${category.toLowerCase()}`}>
-                  <Button variant="outline" size="sm">
-                    View All ({fruits.length})
-                  </Button>
-                </Link>
+          {/* Table Header */}
+          <div className="grid grid-cols-6 gap-4 px-6 py-3 bg-muted/50 border-b font-medium text-sm">
+            <div>Fruit</div>
+            <div>Rarity</div>
+            <div>Type</div>
+            <div>PvP</div>
+            <div>PvE</div>
+            <div>Actions</div>
+          </div>
+          
+          {/* Table Rows */}
+          <div className="max-h-[600px] overflow-y-auto">
+            {getAllFilteredFruits().map((fruit, index) => (
+              <div key={fruit.name} className={`grid grid-cols-6 gap-4 px-6 py-4 border-b hover:bg-muted/30 transition-colors ${index % 2 === 0 ? 'bg-background' : 'bg-muted/10'}`}>
+                {/* Fruit Name and Image */}
+                <div className="flex items-center gap-3">
+                  <img src={fruit.imageUrl} alt={fruit.name} className="w-8 h-8 rounded" />
+                  <div>
+                    <div className="font-medium text-sm">{fruit.name}</div>
+                    <div className="text-xs text-muted-foreground">Demand: {fruit.demand}/10</div>
+                  </div>
+                </div>
+                
+                {/* Rarity */}
+                <div className="flex items-center">
+                  <span className={`px-2 py-1 rounded text-xs font-medium ${getRarityColors(fruit.rarity)}`}>
+                    {fruit.rarity}
+                  </span>
+                </div>
+                
+                {/* Type */}
+                <div className="flex items-center text-sm">{fruit.type}</div>
+                
+                {/* PvP (Regular Value) */}
+                <div className="flex items-center">
+                  <span className="font-mono font-bold text-primary">{formatValue(fruit.value)}</span>
+                </div>
+                
+                {/* PvE (Permanent Value) */}
+                <div className="flex items-center">
+                  <span className="font-mono font-bold text-accent">{formatValue(fruit.permanentValue)}</span>
+                </div>
+                
+                {/* Actions */}
+                <div className="flex items-center gap-2">
+                  <Link href={`/fruit/${encodeURIComponent(fruit.name)}`}>
+                    <Button variant="outline" size="sm" data-testid={`view-${fruit.name.toLowerCase().replace(/\s+/g, '-')}`}>
+                      <i className="fas fa-eye mr-1"></i>
+                      View
+                    </Button>
+                  </Link>
+                </div>
               </div>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-                {(searchTerm || selectedRarity !== "all" ? filteredFruits : fruits.slice(0, 8)).map(fruit => (
-                  <FruitCard key={fruit.name} fruit={fruit} />
-                ))}
-              </div>
-            </div>
-          );
-        })
-      ) : (
-        // Show specific category
-        <div>
-          <h2 className="text-2xl font-bold text-foreground mb-6">{selectedCategory}</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-            {getFilteredFruits(categorizedFruits[selectedCategory as keyof typeof categorizedFruits]).map(fruit => (
-              <FruitCard key={fruit.name} fruit={fruit} />
             ))}
           </div>
         </div>
+      ) : (
+        // Cards View
+        selectedCategory === "all" ? (
+          // Show all categories or filtered by rarity
+          Object.entries(categorizedFruits).map(([category, fruits]) => {
+            const filteredFruits = getFilteredFruits(fruits);
+            if (filteredFruits.length === 0 && (searchTerm || selectedRarity !== "all")) return null;
+            
+            return (
+              <div key={category} className="mb-12">
+                <div className="flex items-center justify-between mb-6">
+                  <h2 className="text-2xl font-bold text-foreground">{category}</h2>
+                  <Link href={`/values/${category.toLowerCase()}`}>
+                    <Button variant="outline" size="sm">
+                      View All ({fruits.length})
+                    </Button>
+                  </Link>
+                </div>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+                  {(searchTerm || selectedRarity !== "all" ? filteredFruits : fruits.slice(0, 8)).map(fruit => (
+                    <FruitCard key={fruit.name} fruit={fruit} />
+                  ))}
+                </div>
+              </div>
+            );
+          })
+        ) : (
+          // Show specific category
+          <div>
+            <h2 className="text-2xl font-bold text-foreground mb-6">{selectedCategory}</h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+              {getFilteredFruits(categorizedFruits[selectedCategory as keyof typeof categorizedFruits]).map(fruit => (
+                <FruitCard key={fruit.name} fruit={fruit} />
+              ))}
+            </div>
+          </div>
+        )
       )}
 
       {/* No results message */}
