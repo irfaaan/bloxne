@@ -106,11 +106,6 @@ export function TradeCalculator({ isPermanent, onModeChange }: TradeCalculatorPr
       <div className="flex items-center justify-between">
         <h3 className={`text-lg font-semibold ${side === 'your' ? 'text-secondary' : 'text-accent'}`}>
           {side === 'your' ? 'Your Offer' : 'Their Offer'}
-          {items.length > 0 && items.length < 4 && (
-            <span className="text-xs font-normal text-muted-foreground ml-2">
-              ({4 - items.length} remaining)
-            </span>
-          )}
         </h3>
         <span className="text-sm text-muted-foreground">
           Value: <span className={`font-mono ${side === 'your' ? 'text-secondary' : 'text-accent'}`} data-testid={`${side}-total`}>
@@ -140,38 +135,7 @@ export function TradeCalculator({ isPermanent, onModeChange }: TradeCalculatorPr
             <p className="text-muted-foreground font-medium">Drag fruits here or click to add</p>
             <p className="text-sm text-muted-foreground mt-1">Up to 4 items</p>
           </div>
-        ) : (
-          <div className="grid grid-cols-2 gap-3 p-3">
-            {/* Render empty slots for remaining items */}
-            {Array.from({ length: 4 }, (_, index) => {
-              const hasItem = index < items.length;
-              const remainingCount = 4 - items.length;
-              
-              if (hasItem) {
-                return null; // Items will be displayed below
-              }
-              
-              return (
-                <div
-                  key={index}
-                  className="aspect-square border-2 border-dashed border-muted-foreground/30 rounded-lg flex flex-col items-center justify-center cursor-pointer hover:border-primary/50 hover:bg-primary/5 transition-all duration-200"
-                  onClick={() => openFruitModal(side)}
-                  data-testid={`add-item-slot-${index}-${side}`}
-                >
-                  <i className="fas fa-plus text-lg text-muted-foreground mb-1"></i>
-                  <span className="text-xs text-muted-foreground text-center">
-                    Add Item
-                    {index === 0 && items.length > 0 && (
-                      <div className="text-xs text-muted-foreground mt-1">
-                        {remainingCount} remaining
-                      </div>
-                    )}
-                  </span>
-                </div>
-              );
-            })}
-          </div>
-        )}
+        ) : null}
       </div>
       
       <div className="space-y-2 min-h-[100px]" data-testid={`${side}-items`}>
@@ -201,6 +165,19 @@ export function TradeCalculator({ isPermanent, onModeChange }: TradeCalculatorPr
             </div>
           </div>
         ))}
+        
+        {/* Add Item Button - Only show if we have items but less than 4 */}
+        {items.length > 0 && items.length < 4 && (
+          <Button
+            variant="outline"
+            className="w-full h-12 border-dashed border-muted-foreground/50 hover:border-primary hover:bg-primary/5 transition-all duration-200"
+            onClick={() => openFruitModal(side)}
+            data-testid={`add-more-items-${side}`}
+          >
+            <i className="fas fa-plus mr-2"></i>
+            Add Item ({4 - items.length} remaining)
+          </Button>
+        )}
       </div>
     </div>
   );
