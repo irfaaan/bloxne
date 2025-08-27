@@ -2,6 +2,8 @@ import { useState } from "react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { formatValue, calculateWFL, fruitsDatabase, type FruitData } from "@/lib/fruitsDatabase";
+import { FruitSelectionModal } from "./FruitSelectionModal";
+import { useToast } from "@/hooks/use-toast";
 
 interface TradeItem {
   name: string;
@@ -17,18 +19,29 @@ interface TradeCalculatorProps {
 export function TradeCalculator({ isPermanent, onModeChange }: TradeCalculatorProps) {
   const [yourItems, setYourItems] = useState<TradeItem[]>([]);
   const [theirItems, setTheirItems] = useState<TradeItem[]>([]);
+  const [modalOpen, setModalOpen] = useState(false);
+  const [modalSide, setModalSide] = useState<'your' | 'their'>('your');
+  const { toast } = useToast();
 
   const addItem = (fruitName: string, side: 'your' | 'their') => {
     const targetArray = side === 'your' ? yourItems : theirItems;
     const setTargetArray = side === 'your' ? setYourItems : setTheirItems;
 
     if (targetArray.length >= 4) {
-      alert('Maximum 4 items allowed per side!');
+      toast({
+        title: "Maximum Limit Reached",
+        description: "You can only add up to 4 items per side.",
+        variant: "destructive",
+      });
       return;
     }
 
     if (targetArray.find(item => item.name === fruitName)) {
-      alert(`${fruitName} is already added to this side!`);
+      toast({
+        title: "Duplicate Item",
+        description: `${fruitName} is already added to this side!`,
+        variant: "destructive",
+      });
       return;
     }
 
@@ -43,6 +56,11 @@ export function TradeCalculator({ isPermanent, onModeChange }: TradeCalculatorPr
     };
 
     setTargetArray([...targetArray, newItem]);
+    
+    toast({
+      title: "Item Added",
+      description: `${fruitName} added to ${side === 'your' ? 'your' : 'their'} offer`,
+    });
   };
 
   const removeItem = (fruitName: string, side: 'your' | 'their') => {
@@ -74,15 +92,13 @@ export function TradeCalculator({ isPermanent, onModeChange }: TradeCalculatorPr
     e.dataTransfer.dropEffect = 'copy';
   };
 
-  const selectFruit = (side: 'your' | 'their') => {
-    const fruitNames = Object.keys(fruitsDatabase);
-    const selectedFruit = prompt(`Select a fruit to add to ${side} side:\n\n${fruitNames.slice(0, 10).join(', ')}...\n\nType the exact fruit name:`);
-    
-    if (selectedFruit && fruitsDatabase[selectedFruit]) {
-      addItem(selectedFruit, side);
-    } else if (selectedFruit) {
-      alert('Fruit not found! Please check the spelling.');
-    }
+  const openFruitModal = (side: 'your' | 'their') => {
+    setModalSide(side);
+    setModalOpen(true);
+  };
+
+  const handleFruitSelect = (fruitName: string) => {
+    addItem(fruitName, modalSide);
   };
 
   const TradeZone = ({ side, items }: { side: 'your' | 'their', items: TradeItem[] }) => (
@@ -111,7 +127,7 @@ export function TradeCalculator({ isPermanent, onModeChange }: TradeCalculatorPr
           e.preventDefault();
           e.currentTarget.classList.remove('drag-over');
         }}
-        onClick={() => selectFruit(side)}
+        onClick={() => openFruitModal(side)}
       >
         {items.length === 0 ? (
           <div className="flex flex-col items-center justify-center h-full text-center cursor-pointer">
@@ -210,6 +226,15 @@ export function TradeCalculator({ isPermanent, onModeChange }: TradeCalculatorPr
           </Button>
         </div>
       </div>
+
+      {/* Fruit Selection Modal */}
+      <FruitSelectionModal
+        open={modalOpen}
+        onClose={() => setModalOpen(false)}
+        onSelectFruit={handleFruitSelect}
+        isPermanent={isPermanent}
+        title={`Select fruit for ${modalSide === 'your' ? 'Your' : 'Their'} offer`}
+      />
     </Card>
   );
 }
