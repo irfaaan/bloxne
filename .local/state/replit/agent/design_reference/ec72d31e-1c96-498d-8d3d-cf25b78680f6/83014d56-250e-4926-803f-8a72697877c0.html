@@ -1,0 +1,837 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blox Fruits Values Calculator | Professional Trading Tool</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+    tailwind.config = {
+        theme: {
+            extend: {
+                borderRadius: {
+                    lg: "var(--radius)",
+                    md: "calc(var(--radius) - 2px)",
+                    sm: "calc(var(--radius) - 4px)",
+                },
+                colors: {
+                    background: "var(--background)",
+                    foreground: "var(--foreground)",
+                    card: {
+                        DEFAULT: "var(--card)",
+                        foreground: "var(--card-foreground)",
+                    },
+                    popover: {
+                        DEFAULT: "var(--popover)",
+                        foreground: "var(--popover-foreground)",
+                    },
+                    primary: {
+                        DEFAULT: "var(--primary)",
+                        foreground: "var(--primary-foreground)",
+                    },
+                    secondary: {
+                        DEFAULT: "var(--secondary)",
+                        foreground: "var(--secondary-foreground)",
+                    },
+                    muted: {
+                        DEFAULT: "var(--muted)",
+                        foreground: "var(--muted-foreground)",
+                    },
+                    accent: {
+                        DEFAULT: "var(--accent)",
+                        foreground: "var(--accent-foreground)",
+                    },
+                    destructive: {
+                        DEFAULT: "var(--destructive)",
+                        foreground: "var(--destructive-foreground)",
+                    },
+                    border: "var(--border)",
+                    input: "var(--input)",
+                    ring: "var(--ring)"
+                },
+                fontFamily: {
+                    sans: ["Inter", "system-ui", "sans-serif"],
+                    mono: ["JetBrains Mono", "monospace"]
+                },
+                animation: {
+                    'pulse-glow': 'pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                    'slide-up': 'slideUp 0.3s ease-out',
+                    'fade-in': 'fadeIn 0.5s ease-out'
+                }
+            }
+        }
+    };
+    </script>
+    <style>
+        :root {
+            --background: hsl(220 13% 4%);
+            --foreground: hsl(210 40% 98%);
+            --card: hsl(220 13% 6%);
+            --card-foreground: hsl(210 40% 98%);
+            --popover: hsl(220 13% 6%);
+            --popover-foreground: hsl(210 40% 98%);
+            --primary: hsl(195 100% 50%);
+            --primary-foreground: hsl(220 13% 4%);
+            --secondary: hsl(145 100% 50%);
+            --secondary-foreground: hsl(220 13% 4%);
+            --muted: hsl(220 13% 10%);
+            --muted-foreground: hsl(217 10% 60%);
+            --accent: hsl(22 100% 60%);
+            --accent-foreground: hsl(220 13% 4%);
+            --destructive: hsl(0 100% 60%);
+            --destructive-foreground: hsl(210 40% 98%);
+            --border: hsl(220 13% 12%);
+            --input: hsl(220 13% 8%);
+            --ring: hsl(195 100% 50%);
+            --radius: 12px;
+        }
+
+        body {
+            background: linear-gradient(135deg, hsl(220 13% 4%) 0%, hsl(220 15% 6%) 50%, hsl(220 13% 4%) 100%);
+            background-attachment: fixed;
+        }
+
+        .glass-effect {
+            backdrop-filter: blur(20px);
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .fruit-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 20px 40px rgba(0, 212, 255, 0.2);
+        }
+
+        .trade-zone {
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.1) 0%, rgba(0, 255, 136, 0.1) 100%);
+            border: 2px dashed rgba(0, 212, 255, 0.3);
+        }
+
+        .trade-zone.drag-over {
+            border-color: rgba(0, 255, 136, 0.8);
+            background: linear-gradient(135deg, rgba(0, 255, 136, 0.2) 0%, rgba(0, 212, 255, 0.2) 100%);
+        }
+
+        @keyframes slideUp {
+            from { transform: translateY(20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .countdown-digit {
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.2) 0%, rgba(0, 255, 136, 0.2) 100%);
+            border: 1px solid rgba(0, 212, 255, 0.3);
+        }
+
+        .wfl-indicator {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .wfl-indicator::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            animation: shine 2s infinite;
+        }
+
+        @keyframes shine {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="min-h-screen bg-background text-foreground font-sans">
+    <!-- Navigation Header -->
+    <nav class="glass-effect border-b border-border/50 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center space-x-4">
+                    <div class="flex items-center space-x-2">
+                        <div class="w-10 h-10 bg-gradient-to-br from-primary to-secondary rounded-lg flex items-center justify-center">
+                            <i class="fas fa-calculator text-primary-foreground text-lg"></i>
+                        </div>
+                        <div>
+                            <h1 class="text-xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+                                BloxCalc Pro
+                            </h1>
+                            <p class="text-xs text-muted-foreground">Trading Calculator</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <button class="px-4 py-2 bg-primary hover:bg-primary/90 text-primary-foreground rounded-lg font-medium transition-colors">
+                        <i class="fas fa-discord mr-2"></i>
+                        Discord
+                    </button>
+                    <button class="p-2 bg-card hover:bg-muted rounded-lg transition-colors">
+                        <i class="fas fa-cog text-muted-foreground"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Stock Ticker -->
+    <div class="bg-gradient-to-r from-primary/20 to-secondary/20 border-b border-border/50">
+        <div class="max-w-7xl mx-auto px-4 py-3">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-6">
+                    <div class="flex items-center space-x-2">
+                        <i class="fas fa-clock text-primary"></i>
+                        <span class="text-sm font-medium">Next Stock:</span>
+                        <div class="flex items-center space-x-1">
+                            <div class="countdown-digit px-2 py-1 rounded text-sm font-mono">1H</div>
+                            <div class="countdown-digit px-2 py-1 rounded text-sm font-mono">44M</div>
+                            <div class="countdown-digit px-2 py-1 rounded text-sm font-mono">48S</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-4 text-sm">
+                    <div class="flex items-center space-x-2">
+                        <span class="text-muted-foreground">Current Stock:</span>
+                        <span class="text-primary font-medium">Phoenix • Portal • Magma</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="max-w-7xl mx-auto px-4 py-8">
+        <!-- Main Calculator Section -->
+        <div class="grid lg:grid-cols-3 gap-8 mb-8">
+            <!-- Trading Calculator -->
+            <div class="lg:col-span-2">
+                <div class="glass-effect rounded-xl p-6">
+                    <div class="flex items-center justify-between mb-6">
+                        <h2 class="text-2xl font-bold flex items-center">
+                            <i class="fas fa-exchange-alt text-primary mr-3"></i>
+                            Trade Calculator
+                        </h2>
+                        <div class="flex items-center space-x-2">
+                            <button id="regularMode" class="px-4 py-2 bg-primary text-primary-foreground rounded-lg font-medium transition-colors">
+                                Regular
+                            </button>
+                            <button id="permanentMode" class="px-4 py-2 bg-muted hover:bg-primary text-muted-foreground hover:text-primary-foreground rounded-lg font-medium transition-colors">
+                                Permanent
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Trade Sides -->
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <!-- Your Offer -->
+                        <div class="space-y-4">
+                            <div class="flex items-center justify-between">
+                                <h3 class="text-lg font-semibold text-secondary">Your Offer</h3>
+                                <span class="text-sm text-muted-foreground">Value: <span id="yourTotal" class="font-mono text-secondary">0</span></span>
+                            </div>
+                            <div id="yourTradeZone" class="trade-zone rounded-xl p-6 min-h-[200px] transition-all duration-300">
+                                <div class="flex flex-col items-center justify-center h-full text-center">
+                                    <i class="fas fa-plus-circle text-4xl text-muted-foreground mb-4"></i>
+                                    <p class="text-muted-foreground font-medium">Drag fruits here or click to add</p>
+                                    <p class="text-sm text-muted-foreground mt-1">Up to 4 items</p>
+                                </div>
+                            </div>
+                            <div id="yourItems" class="space-y-2 min-h-[100px]">
+                                <!-- Added items will appear here -->
+                            </div>
+                        </div>
+
+                        <!-- Their Offer -->
+                        <div class="space-y-4">
+                            <div class="flex items-center justify-between">
+                                <h3 class="text-lg font-semibold text-accent">Their Offer</h3>
+                                <span class="text-sm text-muted-foreground">Value: <span id="theirTotal" class="font-mono text-accent">0</span></span>
+                            </div>
+                            <div id="theirTradeZone" class="trade-zone rounded-xl p-6 min-h-[200px] transition-all duration-300">
+                                <div class="flex flex-col items-center justify-center h-full text-center">
+                                    <i class="fas fa-plus-circle text-4xl text-muted-foreground mb-4"></i>
+                                    <p class="text-muted-foreground font-medium">Drag fruits here or click to add</p>
+                                    <p class="text-sm text-muted-foreground mt-1">Up to 4 items</p>
+                                </div>
+                            </div>
+                            <div id="theirItems" class="space-y-2 min-h-[100px]">
+                                <!-- Added items will appear here -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- WFL Result -->
+                    <div class="mt-6 p-4 rounded-xl bg-gradient-to-r from-muted/50 to-card border border-border">
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center space-x-4">
+                                <div id="wflResult" class="wfl-indicator px-6 py-3 rounded-lg bg-muted text-muted-foreground font-bold text-lg">
+                                    NEUTRAL
+                                </div>
+                                <div class="text-sm">
+                                    <p class="text-muted-foreground">Difference: <span id="valueDifference" class="font-mono">0</span></p>
+                                    <p class="text-muted-foreground">Percentage: <span id="percentageDifference" class="font-mono">0%</span></p>
+                                </div>
+                            </div>
+                            <button id="resetCalculator" class="px-4 py-2 bg-destructive hover:bg-destructive/90 text-destructive-foreground rounded-lg font-medium transition-colors">
+                                <i class="fas fa-undo mr-2"></i>Reset
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quick Stats -->
+            <div class="space-y-6">
+                <!-- Search -->
+                <div class="glass-effect rounded-xl p-6">
+                    <h3 class="text-lg font-semibold mb-4">Find Fruits</h3>
+                    <div class="relative">
+                        <input 
+                            type="text" 
+                            id="fruitSearch" 
+                            placeholder="Search fruits..." 
+                            class="w-full bg-input border border-border rounded-lg px-4 py-3 pl-10 text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring"
+                        >
+                        <i class="fas fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground"></i>
+                    </div>
+                    <div class="flex flex-wrap gap-2 mt-4">
+                        <button class="filter-btn px-3 py-1 bg-muted hover:bg-primary text-muted-foreground hover:text-primary-foreground rounded-lg text-sm transition-colors" data-filter="all">All</button>
+                        <button class="filter-btn px-3 py-1 bg-muted hover:bg-primary text-muted-foreground hover:text-primary-foreground rounded-lg text-sm transition-colors" data-filter="Mythical">Mythical</button>
+                        <button class="filter-btn px-3 py-1 bg-muted hover:bg-primary text-muted-foreground hover:text-primary-foreground rounded-lg text-sm transition-colors" data-filter="Legendary">Legendary</button>
+                        <button class="filter-btn px-3 py-1 bg-muted hover:bg-primary text-muted-foreground hover:text-primary-foreground rounded-lg text-sm transition-colors" data-filter="Rare">Rare</button>
+                    </div>
+                </div>
+
+                <!-- Top Values -->
+                <div class="glass-effect rounded-xl p-6">
+                    <h3 class="text-lg font-semibold mb-4 flex items-center">
+                        <i class="fas fa-crown text-accent mr-2"></i>
+                        Top Values
+                    </h3>
+                    <div class="space-y-3">
+                        <div class="flex items-center justify-between p-3 bg-gradient-to-r from-accent/20 to-primary/20 rounded-lg">
+                            <div class="flex items-center space-x-3">
+                                <img src="https://i.postimg.cc/7LfBxxs8/West-Dragon.png" alt="West Dragon" class="w-8 h-8 rounded">
+                                <span class="font-medium">West Dragon</span>
+                            </div>
+                            <span class="font-mono text-accent font-bold">1.325B</span>
+                        </div>
+                        <div class="flex items-center justify-between p-3 bg-gradient-to-r from-accent/20 to-primary/20 rounded-lg">
+                            <div class="flex items-center space-x-3">
+                                <img src="https://i.postimg.cc/gkzHzzjS/East-Dragon.png" alt="East Dragon" class="w-8 h-8 rounded">
+                                <span class="font-medium">East Dragon</span>
+                            </div>
+                            <span class="font-mono text-accent font-bold">1.06B</span>
+                        </div>
+                        <div class="flex items-center justify-between p-3 bg-gradient-to-r from-accent/20 to-primary/20 rounded-lg">
+                            <div class="flex items-center space-x-3">
+                                <img src="https://i.postimg.cc/CLxbycr9/Kitsune.png" alt="Kitsune" class="w-8 h-8 rounded">
+                                <span class="font-medium">Kitsune</span>
+                            </div>
+                            <span class="font-mono text-accent font-bold">265M</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Market Trends -->
+                <div class="glass-effect rounded-xl p-6">
+                    <h3 class="text-lg font-semibold mb-4 flex items-center">
+                        <i class="fas fa-chart-line text-secondary mr-2"></i>
+                        Market Trends
+                    </h3>
+                    <div class="space-y-3">
+                        <div class="flex items-center justify-between">
+                            <span class="text-sm">Overpaid Items</span>
+                            <span class="text-sm text-destructive font-medium">23</span>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <span class="text-sm">Stable Market</span>
+                            <span class="text-sm text-secondary font-medium">18</span>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <span class="text-sm">Rising Values</span>
+                            <span class="text-sm text-primary font-medium">7</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Fruits Library -->
+        <div class="glass-effect rounded-xl p-6">
+            <div class="flex items-center justify-between mb-6">
+                <h2 class="text-2xl font-bold flex items-center">
+                    <i class="fas fa-apple-alt text-secondary mr-3"></i>
+                    Fruits Library
+                    <span class="ml-2 text-sm text-muted-foreground font-normal">(42 fruits)</span>
+                </h2>
+                <div class="flex items-center space-x-2">
+                    <span class="text-sm text-muted-foreground">View Mode:</span>
+                    <select id="viewMode" class="bg-input border border-border rounded-lg px-3 py-2 text-foreground">
+                        <option value="regular">Regular</option>
+                        <option value="permanent">Permanent</option>
+                    </select>
+                </div>
+            </div>
+
+            <div id="fruitsGrid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-8 gap-4">
+                <!-- Fruit cards will be generated here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-card border-t border-border mt-16">
+        <div class="max-w-7xl mx-auto px-4 py-8">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-4">
+                    <div class="w-8 h-8 bg-gradient-to-br from-primary to-secondary rounded-lg flex items-center justify-center">
+                        <i class="fas fa-calculator text-primary-foreground"></i>
+                    </div>
+                    <div>
+                        <p class="font-semibold">BloxCalc Pro</p>
+                        <p class="text-sm text-muted-foreground">Professional Blox Fruits Trading Calculator</p>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <a href="#" class="text-muted-foreground hover:text-primary transition-colors">
+                        <i class="fab fa-discord"></i>
+                    </a>
+                    <a href="#" class="text-muted-foreground hover:text-primary transition-colors">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    <a href="#" class="text-muted-foreground hover:text-primary transition-colors">
+                        <i class="fab fa-youtube"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="mt-6 pt-6 border-t border-border text-center text-sm text-muted-foreground">
+                <p>© 2025 BloxCalc Pro. Not affiliated with Roblox or Blox Fruits. All fruit images and data are for educational purposes.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        (function() {
+            // Comprehensive Blox Fruits Database with Real Values
+            const fruitsDatabase = {
+                // Mythical Fruits
+                "West Dragon": { value: 1325000000, permanentValue: 2650000000, price: 15000000, rarity: "Mythical", demand: 10, trend: "Overpaid", type: "Beast", image: "https://i.postimg.cc/7LfBxxs8/West-Dragon.png" },
+                "East Dragon": { value: 1060000000, permanentValue: 2120000000, price: 15000000, rarity: "Mythical", demand: 10, trend: "Overpaid", type: "Beast", image: "https://i.postimg.cc/gkzHzzjS/East-Dragon.png" },
+                "Kitsune": { value: 265000000, permanentValue: 530000000, price: 8000000, rarity: "Mythical", demand: 10, trend: "Overpaid", type: "Beast", image: "https://i.postimg.cc/CLxbycr9/Kitsune.png" },
+                "Yeti": { value: 140000000, permanentValue: 280000000, price: 5000000, rarity: "Mythical", demand: 10, trend: "Overpaid", type: "Beast", image: "https://i.postimg.cc/mrJmk0Jc/Yeti.png" },
+                "Gas": { value: 75000000, permanentValue: 150000000, price: 3200000, rarity: "Mythical", demand: 9, trend: "Stable", type: "Elemental", image: "https://i.postimg.cc/nzKqxgJf/Gas.png" },
+                "Leopard": { value: 55000000, permanentValue: 110000000, price: 5000000, rarity: "Mythical", demand: 10, trend: "Overpaid", type: "Beast", image: "https://i.postimg.cc/rwdWsKkJ/Leopard.png" },
+                "Dough": { value: 30000000, permanentValue: 60000000, price: 2800000, rarity: "Mythical", demand: 10, trend: "Stable", type: "Logia", image: "https://i.postimg.cc/wxckYyqR/Dough.png" },
+                "T-Rex": { value: 20000000, permanentValue: 40000000, price: 2700000, rarity: "Mythical", demand: 8, trend: "Stable", type: "Beast", image: "https://i.postimg.cc/zGDtcwTf/T-Rex.png" },
+                "Gravity": { value: 20000000, permanentValue: 40000000, price: 2500000, rarity: "Mythical", demand: 4, trend: "Stable", type: "Natural", image: "https://i.postimg.cc/D02Lw6vJ/Gravity.png" },
+                "Mammoth": { value: 10000000, permanentValue: 20000000, price: 2700000, rarity: "Mythical", demand: 6, trend: "Stable", type: "Beast", image: "https://i.postimg.cc/sXJGqWYV/Mammoth.png" },
+                "Spirit": { value: 10000000, permanentValue: 20000000, price: 3400000, rarity: "Mythical", demand: 6, trend: "Stable", type: "Natural", image: "https://i.postimg.cc/wTpbhYvL/Spirit.png" },
+                "Control": { value: 10000000, permanentValue: 20000000, price: 3200000, rarity: "Mythical", demand: 4, trend: "Stable", type: "Natural", image: "https://i.postimg.cc/9QNpg6Wx/Control.png" },
+                "Venom": { value: 10000000, permanentValue: 20000000, price: 3000000, rarity: "Mythical", demand: 8, trend: "Stable", type: "Natural", image: "https://i.postimg.cc/zGdtZLkF/Venom.png" },
+                "Shadow": { value: 6500000, permanentValue: 13000000, price: 2900000, rarity: "Mythical", demand: 6, trend: "Stable", type: "Natural", image: "https://i.postimg.cc/kGpGPvBd/Shadow.png" },
+                
+                // Legendary Fruits
+                "Lightning": { value: 55000000, permanentValue: 110000000, price: 2100000, rarity: "Legendary", demand: 6, trend: "Dropping", type: "Logia", image: "https://i.postimg.cc/MHTHLFZD/Rumble.png" },
+                "Pain": { value: 20000000, permanentValue: 40000000, price: 2300000, rarity: "Legendary", demand: 7, trend: "Soon", type: "Natural", image: "https://i.postimg.cc/mk21srj7/Pain.png" },
+                "Portal": { value: 10000000, permanentValue: 20000000, price: 1900000, rarity: "Legendary", demand: 10, trend: "Overpaid", type: "Natural", image: "https://i.postimg.cc/DzkWz65v/Portal.png" },
+                "Buddha": { value: 10000000, permanentValue: 20000000, price: 1200000, rarity: "Legendary", demand: 10, trend: "Overpaid", type: "Beast", image: "https://i.postimg.cc/02nZD6h1/Buddha.png" },
+                "Blizzard": { value: 5000000, permanentValue: 10000000, price: 2400000, rarity: "Legendary", demand: 5, trend: "Stable", type: "Logia", image: "https://i.postimg.cc/fTDBV72v/Blizzard.png" },
+                "Creation": { value: 3500000, permanentValue: 7000000, price: 1400000, rarity: "Legendary", demand: 4, trend: "Stable", type: "Natural", image: "https://i.postimg.cc/HLctq6nT/Creation.png" },
+                "Phoenix": { value: 2750000, permanentValue: 5500000, price: 1800000, rarity: "Legendary", demand: 3, trend: "Stable", type: "Beast", image: "https://i.postimg.cc/DwbJFHrp/Phoenix.png" },
+                "Sound": { value: 2500000, permanentValue: 5000000, price: 1700000, rarity: "Legendary", demand: 4, trend: "Stable", type: "Natural", image: "https://i.postimg.cc/MKgHs5C7/Sound.png" },
+                "Spider": { value: 1500000, permanentValue: 3000000, price: 1500000, rarity: "Legendary", demand: 2, trend: "Stable", type: "Natural", image: "https://i.postimg.cc/MpRTgRwh/Spider.png" },
+                "Love": { value: 1500000, permanentValue: 3000000, price: 1300000, rarity: "Legendary", demand: 3, trend: "Stable", type: "Natural", image: "https://i.postimg.cc/0NDwGFrK/Love.png" },
+                "Quake": { value: 1000000, permanentValue: 2000000, price: 1000000, rarity: "Legendary", demand: 2, trend: "Stable", type: "Natural", image: "https://i.postimg.cc/cJRvt35Q/Quake.png" },
+                
+                // Rare Fruits
+                "Magma": { value: 1150000, permanentValue: 2300000, price: 960000, rarity: "Rare", demand: 8, trend: "Overpaid", type: "Logia", image: "https://i.postimg.cc/W3VJ58JW/Magma.png" },
+                "Light": { value: 800000, permanentValue: 1600000, price: 650000, rarity: "Rare", demand: 2, trend: "Stable", type: "Logia", image: "https://i.postimg.cc/K8dTMxcy/Light.png" },
+                "Ghost": { value: 800000, permanentValue: 1600000, price: 940000, rarity: "Rare", demand: 1, trend: "Underpaid", type: "Natural", image: "https://i.postimg.cc/k4PWk9Ly/Ghost.png" },
+                "Rubber": { value: 700000, permanentValue: 1400000, price: 750000, rarity: "Rare", demand: 1, trend: "Stable", type: "Natural", image: "https://i.postimg.cc/qRQgjTrq/Rubber.png" },
+                
+                // Uncommon Fruits
+                "Diamond": { value: 1000000, permanentValue: 2000000, price: 600000, rarity: "Uncommon", demand: 2, trend: "Stable", type: "Natural", image: "https://i.postimg.cc/3N7CD7Bw/Diamond.png" },
+                "Eagle": { value: 800000, permanentValue: 1600000, price: 550000, rarity: "Uncommon", demand: 2, trend: "Stable", type: "Beast", image: "https://i.postimg.cc/sxcPY864/Eagle.png" },
+                "Ice": { value: 550000, permanentValue: 1100000, price: 350000, rarity: "Uncommon", demand: 2, trend: "Stable", type: "Logia", image: "https://i.postimg.cc/zDjTPs7n/Ice.png" },
+                "Sand": { value: 420000, permanentValue: 840000, price: 420000, rarity: "Uncommon", demand: 1, trend: "Stable", type: "Logia", image: "https://i.postimg.cc/QxFVkwyN/Sand.png" },
+                "Dark": { value: 400000, permanentValue: 800000, price: 500000, rarity: "Uncommon", demand: 1, trend: "Stable", type: "Logia", image: "https://i.postimg.cc/0NTCP7KD/Dark.png" },
+                "Flame": { value: 250000, permanentValue: 500000, price: 250000, rarity: "Uncommon", demand: 1, trend: "Stable", type: "Logia", image: "https://i.postimg.cc/y8WhRLF0/Flame.png" },
+                
+                // Common Fruits
+                "Spike": { value: 180000, permanentValue: 360000, price: 180000, rarity: "Common", demand: 1, trend: "Stable", type: "Natural", image: "https://i.postimg.cc/fbNLsLTk/Spike.png" },
+                "Smoke": { value: 100000, permanentValue: 200000, price: 100000, rarity: "Common", demand: 1, trend: "Stable", type: "Logia", image: "https://i.postimg.cc/nVRCmpTw/Smoke.png" },
+                "Bomb": { value: 80000, permanentValue: 160000, price: 80000, rarity: "Common", demand: 1, trend: "Stable", type: "Natural", image: "https://i.postimg.cc/y8NjP1zg/Bomb.png" },
+                "Spring": { value: 60000, permanentValue: 120000, price: 60000, rarity: "Common", demand: 1, trend: "Stable", type: "Natural", image: "https://i.postimg.cc/15r7B7nT/Spring.png" },
+                "Blade": { value: 50000, permanentValue: 100000, price: 30000, rarity: "Common", demand: 1, trend: "Stable", type: "Natural", image: "https://i.postimg.cc/bYQmYVTJ/Blade.png" },
+                "Spin": { value: 7500, permanentValue: 15000, price: 7500, rarity: "Common", demand: 1, trend: "Stable", type: "Natural", image: "https://i.postimg.cc/jj4jSbLc/Spin.png" },
+                "Rocket": { value: 5000, permanentValue: 10000, price: 5000, rarity: "Common", demand: 1, trend: "Stable", type: "Natural", image: "https://i.postimg.cc/cHdrRJVP/Rocket.png" }
+            };
+
+            // State Management
+            let currentMode = 'regular';
+            let yourItems = [];
+            let theirItems = [];
+            let filteredFruits = Object.keys(fruitsDatabase);
+
+            // Initialize Application
+            function init() {
+                generateFruitsGrid();
+                setupEventListeners();
+                setupDragAndDrop();
+                updateCalculation();
+            }
+
+            // Generate Fruits Grid
+            function generateFruitsGrid() {
+                const fruitsGrid = document.getElementById('fruitsGrid');
+                fruitsGrid.innerHTML = '';
+
+                filteredFruits.forEach(fruitName => {
+                    const fruit = fruitsDatabase[fruitName];
+                    const currentValue = currentMode === 'permanent' ? fruit.permanentValue : fruit.value;
+
+                    const fruitCard = document.createElement('div');
+                    fruitCard.className = 'fruit-card bg-card hover:bg-muted border border-border rounded-xl p-4 cursor-pointer transition-all duration-300 draggable';
+                    fruitCard.draggable = true;
+                    fruitCard.dataset.fruit = fruitName;
+
+                    const rarityColors = {
+                        'Mythical': 'from-yellow-500/20 to-red-500/20 border-yellow-500/30',
+                        'Legendary': 'from-purple-500/20 to-pink-500/20 border-purple-500/30',
+                        'Rare': 'from-blue-500/20 to-cyan-500/20 border-blue-500/30',
+                        'Uncommon': 'from-green-500/20 to-emerald-500/20 border-green-500/30',
+                        'Common': 'from-gray-500/20 to-slate-500/20 border-gray-500/30'
+                    };
+
+                    const trendIcons = {
+                        'Overpaid': '<i class="fas fa-arrow-up text-destructive"></i>',
+                        'Dropping': '<i class="fas fa-arrow-down text-destructive"></i>',
+                        'Rising': '<i class="fas fa-arrow-up text-secondary"></i>',
+                        'Stable': '<i class="fas fa-minus text-muted-foreground"></i>',
+                        'Soon': '<i class="fas fa-clock text-accent"></i>',
+                        'Underpaid': '<i class="fas fa-arrow-down text-secondary"></i>'
+                    };
+
+                    fruitCard.innerHTML = `
+                        <div class="bg-gradient-to-br ${rarityColors[fruit.rarity]} rounded-lg p-2 mb-3">
+                            <img src="${fruit.image}" alt="${fruitName}" class="w-full h-16 object-contain" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIHZpZXdCb3g9IjAgMCA2NCA2NCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiByeD0iOCIgZmlsbD0iIzMzMzMzMyIvPgo8dGV4dCB4PSIzMiIgeT0iMzYiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSI4IiBmaWxsPSIjOTk5OTk5IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj5JbWFnZTwvdGV4dD4KPC9zdmc+'" />
+                        </div>
+                        <h4 class="font-semibold text-xs mb-2 text-center leading-tight">${fruitName}</h4>
+                        <div class="space-y-1 text-xs">
+                            <div class="flex justify-between items-center">
+                                <span class="text-muted-foreground">Value:</span>
+                                <span class="font-mono font-bold text-primary">${formatValue(currentValue)}</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-muted-foreground">Demand:</span>
+                                <span class="font-medium">${fruit.demand}/10</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-muted-foreground">Trend:</span>
+                                <span class="font-medium">${trendIcons[fruit.trend] || ''}</span>
+                            </div>
+                        </div>
+                    `;
+
+                    fruitCard.addEventListener('click', () => addFruitToTrade(fruitName, 'your'));
+                    fruitsGrid.appendChild(fruitCard);
+                });
+            }
+
+            // Setup Event Listeners
+            function setupEventListeners() {
+                // Mode switching
+                document.getElementById('regularMode').addEventListener('click', () => switchMode('regular'));
+                document.getElementById('permanentMode').addEventListener('click', () => switchMode('permanent'));
+                document.getElementById('viewMode').addEventListener('change', (e) => switchMode(e.target.value));
+
+                // Search functionality
+                document.getElementById('fruitSearch').addEventListener('input', handleSearch);
+
+                // Filter buttons
+                document.querySelectorAll('.filter-btn').forEach(btn => {
+                    btn.addEventListener('click', (e) => handleFilter(e.target.dataset.filter));
+                });
+
+                // Reset calculator
+                document.getElementById('resetCalculator').addEventListener('click', resetCalculator);
+
+                // Trade zone clicks
+                document.getElementById('yourTradeZone').addEventListener('click', () => showFruitSelector('your'));
+                document.getElementById('theirTradeZone').addEventListener('click', () => showFruitSelector('their'));
+            }
+
+            // Setup Drag and Drop
+            function setupDragAndDrop() {
+                const tradeZones = [document.getElementById('yourTradeZone'), document.getElementById('theirTradeZone')];
+                
+                // Drag start
+                document.addEventListener('dragstart', (e) => {
+                    if (e.target.classList.contains('draggable')) {
+                        e.dataTransfer.setData('text/plain', e.target.dataset.fruit);
+                        e.dataTransfer.effectAllowed = 'copy';
+                    }
+                });
+
+                // Drag over and drop
+                tradeZones.forEach((zone, index) => {
+                    const side = index === 0 ? 'your' : 'their';
+                    
+                    zone.addEventListener('dragover', (e) => {
+                        e.preventDefault();
+                        e.dataTransfer.dropEffect = 'copy';
+                        zone.classList.add('drag-over');
+                    });
+
+                    zone.addEventListener('dragleave', () => {
+                        zone.classList.remove('drag-over');
+                    });
+
+                    zone.addEventListener('drop', (e) => {
+                        e.preventDefault();
+                        zone.classList.remove('drag-over');
+                        const fruitName = e.dataTransfer.getData('text/plain');
+                        if (fruitName) {
+                            addFruitToTrade(fruitName, side);
+                        }
+                    });
+                });
+            }
+
+            // Switch Mode
+            function switchMode(mode) {
+                currentMode = mode;
+                
+                // Update UI buttons
+                document.getElementById('regularMode').className = mode === 'regular' 
+                    ? 'px-4 py-2 bg-primary text-primary-foreground rounded-lg font-medium transition-colors'
+                    : 'px-4 py-2 bg-muted hover:bg-primary text-muted-foreground hover:text-primary-foreground rounded-lg font-medium transition-colors';
+                
+                document.getElementById('permanentMode').className = mode === 'permanent'
+                    ? 'px-4 py-2 bg-primary text-primary-foreground rounded-lg font-medium transition-colors'
+                    : 'px-4 py-2 bg-muted hover:bg-primary text-muted-foreground hover:text-primary-foreground rounded-lg font-medium transition-colors';
+
+                document.getElementById('viewMode').value = mode;
+
+                // Regenerate grid and update calculations
+                generateFruitsGrid();
+                updateTradeDisplay();
+                updateCalculation();
+            }
+
+            // Handle Search
+            function handleSearch(e) {
+                const searchTerm = e.target.value.toLowerCase();
+                filteredFruits = Object.keys(fruitsDatabase).filter(fruit =>
+                    fruit.toLowerCase().includes(searchTerm)
+                );
+                generateFruitsGrid();
+            }
+
+            // Handle Filter
+            function handleFilter(filter) {
+                // Update filter button states
+                document.querySelectorAll('.filter-btn').forEach(btn => {
+                    btn.className = btn.dataset.filter === filter
+                        ? 'filter-btn px-3 py-1 bg-primary text-primary-foreground rounded-lg text-sm transition-colors'
+                        : 'filter-btn px-3 py-1 bg-muted hover:bg-primary text-muted-foreground hover:text-primary-foreground rounded-lg text-sm transition-colors';
+                });
+
+                if (filter === 'all') {
+                    filteredFruits = Object.keys(fruitsDatabase);
+                } else {
+                    filteredFruits = Object.keys(fruitsDatabase).filter(fruit =>
+                        fruitsDatabase[fruit].rarity === filter
+                    );
+                }
+                generateFruitsGrid();
+            }
+
+            // Add Fruit to Trade
+            function addFruitToTrade(fruitName, side) {
+                const targetArray = side === 'your' ? yourItems : theirItems;
+                
+                if (targetArray.length >= 4) {
+                    alert(`Maximum 4 items allowed per side!`);
+                    return;
+                }
+
+                if (targetArray.find(item => item.name === fruitName)) {
+                    alert(`${fruitName} is already added to this side!`);
+                    return;
+                }
+
+                const fruit = fruitsDatabase[fruitName];
+                const currentValue = currentMode === 'permanent' ? fruit.permanentValue : fruit.value;
+
+                targetArray.push({
+                    name: fruitName,
+                    value: currentValue,
+                    ...fruit
+                });
+
+                updateTradeDisplay();
+                updateCalculation();
+            }
+
+            // Remove Fruit from Trade
+            function removeFruitFromTrade(fruitName, side) {
+                const targetArray = side === 'your' ? yourItems : theirItems;
+                const index = targetArray.findIndex(item => item.name === fruitName);
+                
+                if (index !== -1) {
+                    targetArray.splice(index, 1);
+                    updateTradeDisplay();
+                    updateCalculation();
+                }
+            }
+
+            // Update Trade Display
+            function updateTradeDisplay() {
+                updateSideDisplay(yourItems, 'yourItems', 'yourTradeZone', 'your');
+                updateSideDisplay(theirItems, 'theirItems', 'theirTradeZone', 'their');
+            }
+
+            function updateSideDisplay(items, containerId, zoneId, side) {
+                const container = document.getElementById(containerId);
+                const zone = document.getElementById(zoneId);
+                
+                container.innerHTML = '';
+                
+                if (items.length === 0) {
+                    zone.querySelector('.flex').style.display = 'flex';
+                } else {
+                    zone.querySelector('.flex').style.display = 'none';
+                    
+                    items.forEach(item => {
+                        const itemElement = document.createElement('div');
+                        itemElement.className = 'flex items-center justify-between p-3 bg-muted rounded-lg';
+                        itemElement.innerHTML = `
+                            <div class="flex items-center space-x-3">
+                                <img src="${item.image}" alt="${item.name}" class="w-8 h-8 rounded">
+                                <div>
+                                    <p class="font-medium text-sm">${item.name}</p>
+                                    <p class="text-xs text-muted-foreground">Demand: ${item.demand}/10</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center space-x-2">
+                                <span class="font-mono text-sm font-bold">${formatValue(item.value)}</span>
+                                <button onclick="removeFruitFromTrade('${item.name}', '${side}')" class="text-destructive hover:text-destructive/80 transition-colors">
+                                    <i class="fas fa-times"></i>
+                                </button>
+                            </div>
+                        `;
+                        container.appendChild(itemElement);
+                    });
+                }
+            }
+
+            // Update Calculation
+            function updateCalculation() {
+                const yourTotal = yourItems.reduce((sum, item) => sum + item.value, 0);
+                const theirTotal = theirItems.reduce((sum, item) => sum + item.value, 0);
+                const difference = yourTotal - theirTotal;
+                const percentage = yourTotal > 0 ? ((difference / yourTotal) * 100) : 0;
+
+                // Update totals
+                document.getElementById('yourTotal').textContent = formatValue(yourTotal);
+                document.getElementById('theirTotal').textContent = formatValue(theirTotal);
+                document.getElementById('valueDifference').textContent = formatValue(Math.abs(difference));
+                document.getElementById('percentageDifference').textContent = percentage.toFixed(1) + '%';
+
+                // Determine WFL result
+                let result, className;
+                if (percentage < -25) {
+                    result = 'HUGE LOSS';
+                    className = 'bg-destructive text-destructive-foreground';
+                } else if (percentage < -10) {
+                    result = 'LOSS';
+                    className = 'bg-destructive/80 text-destructive-foreground';
+                } else if (percentage >= -10 && percentage <= 10) {
+                    result = 'FAIR';
+                    className = 'bg-muted text-muted-foreground';
+                } else if (percentage <= 25) {
+                    result = 'WIN';
+                    className = 'bg-secondary/80 text-secondary-foreground';
+                } else {
+                    result = 'HUGE WIN';
+                    className = 'bg-secondary text-secondary-foreground';
+                }
+
+                if (yourTotal === 0 && theirTotal === 0) {
+                    result = 'NEUTRAL';
+                    className = 'bg-muted text-muted-foreground';
+                }
+
+                const wflElement = document.getElementById('wflResult');
+                wflElement.textContent = result;
+                wflElement.className = `wfl-indicator px-6 py-3 rounded-lg font-bold text-lg ${className}`;
+            }
+
+            // Reset Calculator
+            function resetCalculator() {
+                yourItems = [];
+                theirItems = [];
+                updateTradeDisplay();
+                updateCalculation();
+            }
+
+            // Show Fruit Selector Modal (Simplified - shows alert for demo)
+            function showFruitSelector(side) {
+                const fruitNames = Object.keys(fruitsDatabase);
+                const selectedFruit = prompt(`Select a fruit to add to ${side} side:\n\n${fruitNames.slice(0, 10).join(', ')}...\n\nType the exact fruit name:`);
+                
+                if (selectedFruit && fruitsDatabase[selectedFruit]) {
+                    addFruitToTrade(selectedFruit, side);
+                } else if (selectedFruit) {
+                    alert('Fruit not found! Please check the spelling.');
+                }
+            }
+
+            // Utility Functions
+            function formatValue(value) {
+                if (value >= 1000000000) {
+                    return (value / 1000000000).toFixed(1).replace(/\.0$/, '') + 'B';
+                } else if (value >= 1000000) {
+                    return (value / 1000000).toFixed(1).replace(/\.0$/, '') + 'M';
+                } else if (value >= 1000) {
+                    return (value / 1000).toFixed(1).replace(/\.0$/, '') + 'K';
+                } else {
+                    return value.toString();
+                }
+            }
+
+            // Make functions globally accessible for inline event handlers
+            window.removeFruitFromTrade = removeFruitFromTrade;
+            
+            // Initialize the application
+            init();
+
+            // Update countdown timer
+            function updateCountdown() {
+                // TODO: Implement real countdown logic with server sync
+                // This is a demo implementation
+                const countdownElements = document.querySelectorAll('.countdown-digit');
+                // Demo countdown animation
+                setInterval(() => {
+                    countdownElements.forEach(el => {
+                        el.style.transform = 'scale(0.95)';
+                        setTimeout(() => {
+                            el.style.transform = 'scale(1)';
+                        }, 100);
+                    });
+                }, 1000);
+            }
+
+            updateCountdown();
+        })();
+    </script>
+</body>
+</html>
