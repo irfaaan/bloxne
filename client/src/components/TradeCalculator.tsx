@@ -199,30 +199,96 @@ export function TradeCalculator({ isPermanent, onModeChange }: TradeCalculatorPr
         <TradeZone side="their" items={theirItems} />
       </div>
 
-      <div className="mt-6 p-4 rounded-xl bg-gradient-to-r from-muted/50 to-card border border-border">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center space-x-4">
-            <div 
-              className={`wfl-indicator px-6 py-3 rounded-lg font-bold text-lg ${wflResult.className}`}
-              data-testid="wfl-result"
-            >
-              {wflResult.result}
+      {/* Trade Summary Section */}
+      <div className="mt-6 space-y-4">
+        {/* WFL Result */}
+        <div className="text-center">
+          <div 
+            className={`inline-flex items-center px-8 py-3 rounded-lg font-bold text-xl ${wflResult.className}`}
+            data-testid="wfl-result"
+          >
+            {wflResult.result}
+          </div>
+        </div>
+
+        {/* Detailed Comparison */}
+        <div className="grid grid-cols-3 gap-4 items-center">
+          {/* Your Offer Summary */}
+          <div className="text-center p-4 bg-gradient-to-br from-secondary/20 to-primary/20 rounded-lg">
+            <h3 className="text-sm font-medium text-muted-foreground mb-1">YOUR OFFER</h3>
+            <div className="text-2xl font-bold text-primary font-mono" data-testid="your-offer-total">
+              {yourTotal.toLocaleString()}
             </div>
-            <div className="text-sm">
-              <p className="text-muted-foreground">
-                Difference: <span className="font-mono" data-testid="value-difference">{formatValue(wflResult.difference)}</span>
-              </p>
-              <p className="text-muted-foreground">
-                Percentage: <span className="font-mono" data-testid="percentage-difference">{wflResult.percentage.toFixed(1)}%</span>
-              </p>
+            <div className="text-xs text-muted-foreground mt-1">
+              Demand: {Math.round(yourItems.reduce((sum, item) => sum + item.fruit.demand, 0) / Math.max(yourItems.length, 1))}/10
+            </div>
+            <div className="text-xs text-muted-foreground">
+              Price: {formatValue(yourItems.reduce((sum, item) => sum + item.fruit.price, 0))}
             </div>
           </div>
+
+          {/* VS */}
+          <div className="text-center">
+            <div className="text-muted-foreground text-lg font-medium">vs</div>
+          </div>
+
+          {/* Their Offer Summary */}
+          <div className="text-center p-4 bg-gradient-to-br from-accent/20 to-destructive/20 rounded-lg">
+            <h3 className="text-sm font-medium text-muted-foreground mb-1">THEIR OFFER</h3>
+            <div className="text-2xl font-bold text-accent font-mono" data-testid="their-offer-total">
+              {theirTotal.toLocaleString()}
+            </div>
+            <div className="text-xs text-muted-foreground mt-1">
+              Demand: {Math.round(theirItems.reduce((sum, item) => sum + item.fruit.demand, 0) / Math.max(theirItems.length, 1))}/10
+            </div>
+            <div className="text-xs text-muted-foreground">
+              Price: {formatValue(theirItems.reduce((sum, item) => sum + item.fruit.price, 0))}
+            </div>
+          </div>
+        </div>
+
+        {/* Percentage Bar */}
+        {(yourTotal > 0 || theirTotal > 0) && (
+          <div className="space-y-2">
+            <div className="flex justify-between text-sm">
+              <span>{wflResult.yourPercentage.toFixed(0)}%</span>
+              <span>{wflResult.theirPercentage.toFixed(0)}%</span>
+            </div>
+            <div className="w-full bg-muted rounded-full h-3 overflow-hidden">
+              <div className="h-full bg-gradient-to-r from-secondary to-primary flex">
+                <div 
+                  className="bg-secondary transition-all duration-500" 
+                  style={{ width: `${wflResult.yourPercentage}%` }}
+                ></div>
+                <div 
+                  className="bg-accent transition-all duration-500" 
+                  style={{ width: `${wflResult.theirPercentage}%` }}
+                ></div>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Difference Display */}
+        <div className="text-center p-3 bg-muted/50 rounded-lg">
+          <div className="text-sm text-muted-foreground mb-1">DIFFERENCE:</div>
+          <div 
+            className={`text-lg font-bold font-mono ${theirTotal > yourTotal ? 'text-red-500' : theirTotal < yourTotal ? 'text-green-500' : 'text-muted-foreground'}`}
+            data-testid="value-difference"
+          >
+            {theirTotal > yourTotal ? '-' : theirTotal < yourTotal ? '+' : ''}{wflResult.difference.toLocaleString()}
+          </div>
+        </div>
+
+        {/* Reset Button */}
+        <div className="text-center">
           <Button
             variant="destructive"
             onClick={resetCalculator}
             data-testid="reset-calculator-btn"
+            className="px-8"
           >
-            <i className="fas fa-undo mr-2"></i>Reset
+            <i className="fas fa-undo mr-2"></i>Reset Calculator
           </Button>
         </div>
       </div>

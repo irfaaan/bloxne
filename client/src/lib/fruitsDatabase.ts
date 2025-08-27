@@ -537,34 +537,59 @@ export function calculateWFL(yourTotal: number, theirTotal: number): {
   className: string;
   difference: number;
   percentage: number;
+  yourPercentage: number;
+  theirPercentage: number;
 } {
-  const difference = yourTotal - theirTotal;
-  const percentage = yourTotal > 0 ? ((difference / yourTotal) * 100) : 0;
+  // Calculate the raw difference (their value - your value)
+  const difference = theirTotal - yourTotal;
+  
+  // Calculate percentage based on the total combined value
+  const totalValue = yourTotal + theirTotal;
+  let percentage = 0;
+  
+  if (totalValue > 0) {
+    if (difference > 0) {
+      // They are giving more (you win)
+      percentage = (difference / yourTotal) * 100;
+    } else {
+      // You are giving more (you lose)  
+      percentage = (Math.abs(difference) / theirTotal) * 100;
+    }
+  }
+
+  // Calculate individual percentages for display
+  const yourPercentage = totalValue > 0 ? (yourTotal / totalValue) * 100 : 50;
+  const theirPercentage = totalValue > 0 ? (theirTotal / totalValue) * 100 : 50;
 
   let result: string;
   let className: string;
 
-  if (percentage < -25) {
-    result = 'HUGE LOSS';
-    className = 'bg-destructive text-destructive-foreground';
-  } else if (percentage < -10) {
-    result = 'LOSS';
-    className = 'bg-destructive/80 text-destructive-foreground';
-  } else if (percentage >= -10 && percentage <= 10) {
-    result = 'FAIR';
-    className = 'bg-muted text-muted-foreground';
-  } else if (percentage <= 25) {
-    result = 'WIN';
-    className = 'bg-secondary/80 text-secondary-foreground';
-  } else {
-    result = 'HUGE WIN';
-    className = 'bg-secondary text-secondary-foreground';
-  }
-
   if (yourTotal === 0 && theirTotal === 0) {
-    result = 'NEUTRAL';
+    result = 'Neutral';
     className = 'bg-muted text-muted-foreground';
+  } else if (difference <= -100000000) { // Huge Loss (100M+ difference)
+    result = 'Huge Loss';
+    className = 'bg-red-600 text-white';
+  } else if (difference < 0) { // Loss
+    result = 'Loss';
+    className = 'bg-red-500 text-white';
+  } else if (difference <= 50000000) { // Fair (within 50M)
+    result = 'Fair';
+    className = 'bg-yellow-500 text-black';
+  } else if (difference <= 200000000) { // Win
+    result = 'Win';
+    className = 'bg-green-500 text-white';
+  } else { // Huge Win
+    result = 'Huge Win';
+    className = 'bg-green-600 text-white';
   }
 
-  return { result, className, difference: Math.abs(difference), percentage };
+  return { 
+    result, 
+    className, 
+    difference: Math.abs(difference), 
+    percentage: Math.abs(percentage),
+    yourPercentage,
+    theirPercentage
+  };
 }
