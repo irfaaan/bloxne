@@ -17,37 +17,7 @@ export default function Calculator() {
   };
 
   return (
-    <div className="min-h-screen bg-background text-foreground">
-      {/* Navigation Header */}
-      <nav className="glass-effect border-b border-border/50 sticky top-0 z-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16">
-            <div className="flex items-center space-x-4">
-              <div className="flex items-center space-x-2">
-                <div className="w-10 h-10 bg-gradient-to-br from-primary to-secondary rounded-lg flex items-center justify-center">
-                  <i className="fas fa-calculator text-primary-foreground text-lg"></i>
-                </div>
-                <div>
-                  <h1 className="text-xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
-                    BloxCalc Pro
-                  </h1>
-                  <p className="text-xs text-muted-foreground">Trading Calculator</p>
-                </div>
-              </div>
-            </div>
-            <div className="flex items-center space-x-4">
-              <Button variant="default" data-testid="discord-btn">
-                <i className="fas fa-discord mr-2"></i>
-                Discord
-              </Button>
-              <Button variant="ghost" size="icon">
-                <i className="fas fa-cog text-muted-foreground"></i>
-              </Button>
-            </div>
-          </div>
-        </div>
-      </nav>
-
+    <div className="bg-background text-foreground">
       {/* Stock Ticker */}
       <StockTracker />
 
