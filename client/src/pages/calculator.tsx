@@ -52,6 +52,37 @@ export default function Calculator() {
       <StockTracker />
 
       <div className="max-w-7xl mx-auto px-4 py-8">
+        {/* Welcome Section */}
+        <div className="mb-8 text-center">
+          <h1 className="text-4xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent mb-4">
+            BloxCalc Pro - Trading Calculator
+          </h1>
+          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+            The ultimate tool for Blox Fruits trading. Calculate accurate trade values, track market trends, 
+            and make informed decisions with our comprehensive fruit database.
+          </p>
+        </div>
+
+        {/* Quick Stats */}
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
+          <div className="bg-card p-4 rounded-lg border border-border text-center">
+            <div className="text-2xl font-bold text-primary">35+</div>
+            <div className="text-sm text-muted-foreground">Total Fruits</div>
+          </div>
+          <div className="bg-card p-4 rounded-lg border border-border text-center">
+            <div className="text-2xl font-bold text-accent">4</div>
+            <div className="text-sm text-muted-foreground">Categories</div>
+          </div>
+          <div className="bg-card p-4 rounded-lg border border-border text-center">
+            <div className="text-2xl font-bold text-green-500">Live</div>
+            <div className="text-sm text-muted-foreground">Market Data</div>
+          </div>
+          <div className="bg-card p-4 rounded-lg border border-border text-center">
+            <div className="text-2xl font-bold text-blue-500">24/7</div>
+            <div className="text-sm text-muted-foreground">Updates</div>
+          </div>
+        </div>
+
         {/* Main Calculator Section */}
         <div className="mb-8">
           <TradeCalculator 
@@ -67,37 +98,6 @@ export default function Calculator() {
           onFruitClick={handleFruitClick}
         />
       </div>
-
-      {/* Footer */}
-      <footer className="bg-card border-t border-border mt-16">
-        <div className="max-w-7xl mx-auto px-4 py-8">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-4">
-              <div className="w-8 h-8 bg-gradient-to-br from-primary to-secondary rounded-lg flex items-center justify-center">
-                <i className="fas fa-calculator text-primary-foreground"></i>
-              </div>
-              <div>
-                <p className="font-semibold">BloxCalc Pro</p>
-                <p className="text-sm text-muted-foreground">Professional Blox Fruits Trading Calculator</p>
-              </div>
-            </div>
-            <div className="flex items-center space-x-4">
-              <a href="#" className="text-muted-foreground hover:text-primary transition-colors" data-testid="discord-link">
-                <i className="fab fa-discord"></i>
-              </a>
-              <a href="#" className="text-muted-foreground hover:text-primary transition-colors" data-testid="twitter-link">
-                <i className="fab fa-twitter"></i>
-              </a>
-              <a href="#" className="text-muted-foreground hover:text-primary transition-colors" data-testid="youtube-link">
-                <i className="fab fa-youtube"></i>
-              </a>
-            </div>
-          </div>
-          <div className="mt-6 pt-6 border-t border-border text-center text-sm text-muted-foreground">
-            <p>© 2025 BloxCalc Pro. Not affiliated with Roblox or Blox Fruits. All fruit images and data are for educational purposes.</p>
-          </div>
-        </div>
-      </footer>
     </div>
   );
 }
