@@ -18,24 +18,16 @@ export default function Calculator() {
     const urlParams = new URLSearchParams(window.location.search);
     const fruitParam = urlParams.get('fruit');
     
-    console.log('URL params:', window.location.search);
-    console.log('Fruit param:', fruitParam);
-    
     if (fruitParam && fruitsDatabase[fruitParam]) {
-      console.log('Found fruit in database:', fruitParam);
       // Small delay to ensure the TradeCalculator component is ready
       setTimeout(() => {
-        console.log('Calculator ref:', calculatorRef.current);
         if (calculatorRef.current) {
-          console.log('Adding item to calculator:', fruitParam);
           calculatorRef.current.addItem(fruitParam, 'your');
           
           toast({
             title: "Fruit Added!",
             description: `${fruitParam} has been added to your offer`,
           });
-        } else {
-          console.log('Calculator ref not available');
         }
         
         // Clean up the URL parameter

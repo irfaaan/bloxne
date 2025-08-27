@@ -12,6 +12,15 @@ const categorizedFruits = {
   Logia: Object.values(fruitsDatabase).filter(fruit => fruit.type === "Logia")
 };
 
+// Organize fruits by rarity
+const rarityFruits = {
+  Mythical: Object.values(fruitsDatabase).filter(fruit => fruit.rarity === "Mythical"),
+  Legendary: Object.values(fruitsDatabase).filter(fruit => fruit.rarity === "Legendary"),
+  Rare: Object.values(fruitsDatabase).filter(fruit => fruit.rarity === "Rare"),
+  Uncommon: Object.values(fruitsDatabase).filter(fruit => fruit.rarity === "Uncommon"),
+  Common: Object.values(fruitsDatabase).filter(fruit => fruit.rarity === "Common")
+};
+
 function FruitCard({ fruit }: { fruit: FruitData }) {
   const rarityColors = {
     Mythical: "border-purple-500 bg-purple-500/10",
@@ -70,18 +79,32 @@ function FruitCard({ fruit }: { fruit: FruitData }) {
   );
 }
 
+function getRarityStyle(rarity: string) {
+  const rarityStyles = {
+    Mythical: "border-purple-500/50 hover:border-purple-500 text-purple-600 dark:text-purple-400",
+    Legendary: "border-orange-500/50 hover:border-orange-500 text-orange-600 dark:text-orange-400",
+    Rare: "border-blue-500/50 hover:border-blue-500 text-blue-600 dark:text-blue-400",
+    Uncommon: "border-green-500/50 hover:border-green-500 text-green-600 dark:text-green-400",
+    Common: "border-gray-500/50 hover:border-gray-500 text-gray-600 dark:text-gray-400"
+  };
+  return rarityStyles[rarity as keyof typeof rarityStyles] || "";
+}
+
 export default function FruitValues() {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCategory, setSelectedCategory] = useState<string>("all");
+  const [selectedRarity, setSelectedRarity] = useState<string>("all");
 
-  // Filter fruits based on search and category
+  // Filter fruits based on search, category, and rarity
   const getFilteredFruits = (fruits: FruitData[]) => {
     return fruits.filter(fruit => 
-      fruit.name.toLowerCase().includes(searchTerm.toLowerCase())
+      fruit.name.toLowerCase().includes(searchTerm.toLowerCase()) &&
+      (selectedRarity === "all" || fruit.rarity === selectedRarity)
     );
   };
 
   const categories = ["all", "Natural", "Elemental", "Beast", "Logia"];
+  const rarities = ["all", "Mythical", "Legendary", "Rare", "Uncommon", "Common"];
 
   return (
     <div className="container mx-auto px-4 py-8">
@@ -95,29 +118,65 @@ export default function FruitValues() {
       </div>
 
       {/* Search and Filter Controls */}
-      <div className="flex flex-col sm:flex-row gap-4 mb-8">
-        <div className="flex-1">
-          <Input
-            placeholder="Search fruits..."
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-full"
-            data-testid="fruit-search"
-          />
+      <div className="flex flex-col gap-4 mb-8">
+        <div className="flex flex-col sm:flex-row gap-4">
+          <div className="flex-1">
+            <Input
+              placeholder="Search fruits..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className="w-full"
+              data-testid="fruit-search"
+            />
+          </div>
         </div>
-        <div className="flex flex-wrap gap-2">
-          {categories.map(category => (
-            <Button
-              key={category}
-              variant={selectedCategory === category ? "default" : "outline"}
-              size="sm"
-              onClick={() => setSelectedCategory(category)}
-              data-testid={`filter-${category.toLowerCase()}`}
-            >
-              {category === "all" ? "All Categories" : category}
-            </Button>
-          ))}
+        
+        {/* Type Categories */}
+        <div className="space-y-2">
+          <h3 className="text-sm font-medium text-muted-foreground">Filter by Type</h3>
+          <div className="flex flex-wrap gap-2">
+            {categories.map(category => (
+              <Button
+                key={category}
+                variant={selectedCategory === category ? "default" : "outline"}
+                size="sm"
+                onClick={() => setSelectedCategory(category)}
+                data-testid={`filter-${category.toLowerCase()}`}
+              >
+                {category === "all" ? "All Types" : category}
+              </Button>
+            ))}
+          </div>
         </div>
+
+        {/* Rarity Categories */}
+        <div className="space-y-2">
+          <h3 className="text-sm font-medium text-muted-foreground">Filter by Rarity</h3>
+          <div className="flex flex-wrap gap-2">
+            {rarities.map(rarity => (
+              <Button
+                key={rarity}
+                variant={selectedRarity === rarity ? "default" : "outline"}
+                size="sm"
+                onClick={() => setSelectedRarity(rarity)}
+                data-testid={`filter-rarity-${rarity.toLowerCase()}`}
+                className={selectedRarity === rarity ? "" : getRarityStyle(rarity)}
+              >
+                {rarity === "all" ? "All Rarities" : rarity}
+              </Button>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* Rarity Navigation Cards */}
+      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 mb-8">
+        {Object.entries(rarityFruits).map(([rarity, fruits]) => (
+          <div key={rarity} className="p-4 border-2 border-dashed border-muted-foreground/30 rounded-lg hover:border-primary hover:bg-primary/5 transition-all cursor-pointer text-center" onClick={() => setSelectedRarity(rarity)}>
+            <h3 className="font-semibold text-lg mb-2">{rarity}</h3>
+            <p className="text-muted-foreground text-sm">{fruits.length} fruits</p>
+          </div>
+        ))}
       </div>
 
       {/* Category Navigation */}
@@ -134,10 +193,10 @@ export default function FruitValues() {
 
       {/* Fruits Display */}
       {selectedCategory === "all" ? (
-        // Show all categories
+        // Show all categories or filtered by rarity
         Object.entries(categorizedFruits).map(([category, fruits]) => {
           const filteredFruits = getFilteredFruits(fruits);
-          if (filteredFruits.length === 0 && searchTerm) return null;
+          if (filteredFruits.length === 0 && (searchTerm || selectedRarity !== "all")) return null;
           
           return (
             <div key={category} className="mb-12">
@@ -150,7 +209,7 @@ export default function FruitValues() {
                 </Link>
               </div>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-                {(searchTerm ? filteredFruits : fruits.slice(0, 8)).map(fruit => (
+                {(searchTerm || selectedRarity !== "all" ? filteredFruits : fruits.slice(0, 8)).map(fruit => (
                   <FruitCard key={fruit.name} fruit={fruit} />
                 ))}
               </div>
@@ -170,11 +229,11 @@ export default function FruitValues() {
       )}
 
       {/* No results message */}
-      {searchTerm && Object.values(categorizedFruits).every(fruits => getFilteredFruits(fruits).length === 0) && (
+      {(searchTerm || selectedRarity !== "all") && Object.values(categorizedFruits).every(fruits => getFilteredFruits(fruits).length === 0) && (
         <div className="text-center py-12">
           <i className="fas fa-search text-4xl text-muted-foreground mb-4"></i>
           <h3 className="text-lg font-semibold mb-2">No fruits found</h3>
-          <p className="text-muted-foreground">Try adjusting your search terms</p>
+          <p className="text-muted-foreground">Try adjusting your search terms or filters</p>
         </div>
       )}
     </div>
