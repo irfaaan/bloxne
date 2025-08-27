@@ -135,7 +135,21 @@ export function TradeCalculator({ isPermanent, onModeChange }: TradeCalculatorPr
             <p className="text-muted-foreground font-medium">Drag fruits here or click to add</p>
             <p className="text-sm text-muted-foreground mt-1">Up to 4 items</p>
           </div>
-        ) : null}
+        ) : items.length < 4 ? (
+          <div className="flex flex-col items-center justify-center h-full text-center cursor-pointer py-8">
+            <i className="fas fa-plus-circle text-2xl text-muted-foreground/60 mb-3"></i>
+            <p className="text-muted-foreground font-medium">Click to add more items</p>
+            <p className="text-sm text-muted-foreground mt-1">
+              {4 - items.length} slot{4 - items.length !== 1 ? 's' : ''} remaining
+            </p>
+          </div>
+        ) : (
+          <div className="flex flex-col items-center justify-center h-full text-center py-8">
+            <i className="fas fa-check-circle text-2xl text-green-500 mb-3"></i>
+            <p className="text-muted-foreground font-medium">Trade offer complete</p>
+            <p className="text-sm text-muted-foreground mt-1">4/4 items added</p>
+          </div>
+        )}
       </div>
       
       <div className="space-y-2 min-h-[100px]" data-testid={`${side}-items`}>
