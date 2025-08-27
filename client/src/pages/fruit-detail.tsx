@@ -166,7 +166,7 @@ export default function FruitDetail() {
           <Card className="p-6">
             <h2 className="text-xl font-bold mb-4">Actions</h2>
             <div className="flex flex-col gap-3">
-              <Link href={`/calculator?fruit=${encodeURIComponent(fruit.name)}`}>
+              <Link href={`/?fruit=${encodeURIComponent(fruit.name)}`}>
                 <Button className="w-full" data-testid="use-calculator">
                   Use in Calculator
                 </Button>

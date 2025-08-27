@@ -1,19 +1,49 @@
-import { useState } from "react";
-import { TradeCalculator } from "@/components/TradeCalculator";
+import { useState, useEffect, useRef } from "react";
+import { useLocation } from "wouter";
+import { TradeCalculator, type TradeCalculatorRef } from "@/components/TradeCalculator";
 import { StockTracker } from "@/components/StockTracker";
 import { FruitLibrary } from "@/components/FruitLibrary";
 import { Button } from "@/components/ui/button";
+import { fruitsDatabase } from "@/lib/fruitsDatabase";
+import { useToast } from "@/hooks/use-toast";
 
 export default function Calculator() {
   const [isPermanent, setIsPermanent] = useState(false);
+  const [location, navigate] = useLocation();
+  const { toast } = useToast();
+  const calculatorRef = useRef<TradeCalculatorRef>(null);
+
+  useEffect(() => {
+    // Check for fruit parameter in URL
+    const urlParams = new URLSearchParams(location.split('?')[1] || '');
+    const fruitParam = urlParams.get('fruit');
+    
+    if (fruitParam && fruitsDatabase[fruitParam]) {
+      // Small delay to ensure the TradeCalculator component is ready
+      setTimeout(() => {
+        if (calculatorRef.current) {
+          calculatorRef.current.addItem(fruitParam, 'your');
+        }
+        
+        toast({
+          title: "Fruit Added!",
+          description: `${fruitParam} has been added to your offer`,
+        });
+        
+        // Clean up the URL parameter
+        navigate('/');
+      }, 100);
+    }
+  }, [location, navigate, toast]);
 
   const handleModeChange = (mode: 'regular' | 'permanent') => {
     setIsPermanent(mode === 'permanent');
   };
 
   const handleFruitClick = (fruitName: string) => {
-    // This would integrate with the trade calculator to add fruits
-    console.log('Selected fruit:', fruitName);
+    if (calculatorRef.current) {
+      calculatorRef.current.addItem(fruitName, 'your');
+    }
   };
 
   return (
@@ -25,6 +55,7 @@ export default function Calculator() {
         {/* Main Calculator Section */}
         <div className="mb-8">
           <TradeCalculator 
+            ref={calculatorRef}
             isPermanent={isPermanent} 
             onModeChange={handleModeChange}
           />
