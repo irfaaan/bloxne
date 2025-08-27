@@ -1,0 +1,180 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap");
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: hsl(220, 13%, 4%);
+  --foreground: hsl(210, 40%, 98%);
+  --card: hsl(220, 13%, 6%);
+  --card-foreground: hsl(210, 40%, 98%);
+  --popover: hsl(220, 13%, 6%);
+  --popover-foreground: hsl(210, 40%, 98%);
+  --primary: hsl(195, 100%, 50%);
+  --primary-foreground: hsl(220, 13%, 4%);
+  --secondary: hsl(145, 100%, 50%);
+  --secondary-foreground: hsl(220, 13%, 4%);
+  --muted: hsl(220, 13%, 10%);
+  --muted-foreground: hsl(217, 10%, 60%);
+  --accent: hsl(22, 100%, 60%);
+  --accent-foreground: hsl(220, 13%, 4%);
+  --destructive: hsl(0, 100%, 60%);
+  --destructive-foreground: hsl(210, 40%, 98%);
+  --border: hsl(220, 13%, 12%);
+  --input: hsl(220, 13%, 8%);
+  --ring: hsl(195, 100%, 50%);
+  --radius: 12px;
+  --font-sans: Inter, system-ui, sans-serif;
+  --font-mono: JetBrains Mono, monospace;
+}
+
+.dark {
+  --background: hsl(220, 13%, 4%);
+  --foreground: hsl(210, 40%, 98%);
+  --card: hsl(220, 13%, 6%);
+  --card-foreground: hsl(210, 40%, 98%);
+  --popover: hsl(220, 13%, 6%);
+  --popover-foreground: hsl(210, 40%, 98%);
+  --primary: hsl(195, 100%, 50%);
+  --primary-foreground: hsl(220, 13%, 4%);
+  --secondary: hsl(145, 100%, 50%);
+  --secondary-foreground: hsl(220, 13%, 4%);
+  --muted: hsl(220, 13%, 10%);
+  --muted-foreground: hsl(217, 10%, 60%);
+  --accent: hsl(22, 100%, 60%);
+  --accent-foreground: hsl(220, 13%, 4%);
+  --destructive: hsl(0, 100%, 60%);
+  --destructive-foreground: hsl(210, 40%, 98%);
+  --border: hsl(220, 13%, 12%);
+  --input: hsl(220, 13%, 8%);
+  --ring: hsl(195, 100%, 50%);
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply font-sans antialiased bg-background text-foreground;
+    background: linear-gradient(135deg, hsl(220, 13%, 4%) 0%, hsl(220, 15%, 6%) 50%, hsl(220, 13%, 4%) 100%);
+    background-attachment: fixed;
+  }
+}
+
+@layer components {
+  .glass-effect {
+    backdrop-filter: blur(20px);
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .fruit-card {
+    transition: all 0.3s ease;
+  }
+
+  .fruit-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 20px 40px rgba(0, 212, 255, 0.2);
+  }
+
+  .trade-zone {
+    background: linear-gradient(135deg, rgba(0, 212, 255, 0.1) 0%, rgba(0, 255, 136, 0.1) 100%);
+    border: 2px dashed rgba(0, 212, 255, 0.3);
+    transition: all 0.3s ease;
+  }
+
+  .trade-zone.drag-over {
+    border-color: rgba(0, 255, 136, 0.8);
+    background: linear-gradient(135deg, rgba(0, 255, 136, 0.2) 0%, rgba(0, 212, 255, 0.2) 100%);
+  }
+
+  .countdown-digit {
+    background: linear-gradient(135deg, rgba(0, 212, 255, 0.2) 0%, rgba(0, 255, 136, 0.2) 100%);
+    border: 1px solid rgba(0, 212, 255, 0.3);
+  }
+
+  .wfl-indicator {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .wfl-indicator::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    animation: shine 2s infinite;
+  }
+
+  .rarity-mythical {
+    background: linear-gradient(135deg, rgba(255, 215, 0, 0.2) 0%, rgba(255, 69, 0, 0.2) 100%);
+    border-color: rgba(255, 215, 0, 0.3);
+  }
+
+  .rarity-legendary {
+    background: linear-gradient(135deg, rgba(138, 43, 226, 0.2) 0%, rgba(255, 20, 147, 0.2) 100%);
+    border-color: rgba(138, 43, 226, 0.3);
+  }
+
+  .rarity-rare {
+    background: linear-gradient(135deg, rgba(59, 130, 246, 0.2) 0%, rgba(6, 182, 212, 0.2) 100%);
+    border-color: rgba(59, 130, 246, 0.3);
+  }
+
+  .rarity-uncommon {
+    background: linear-gradient(135deg, rgba(34, 197, 94, 0.2) 0%, rgba(16, 185, 129, 0.2) 100%);
+    border-color: rgba(34, 197, 94, 0.3);
+  }
+
+  .rarity-common {
+    background: linear-gradient(135deg, rgba(107, 114, 128, 0.2) 0%, rgba(75, 85, 99, 0.2) 100%);
+    border-color: rgba(107, 114, 128, 0.3);
+  }
+}
+
+@layer utilities {
+  .animate-slide-up {
+    animation: slideUp 0.3s ease-out;
+  }
+
+  .animate-fade-in {
+    animation: fadeIn 0.5s ease-out;
+  }
+
+  .animate-pulse-glow {
+    animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes shine {
+  0% {
+    left: -100%;
+  }
+  100% {
+    left: 100%;
+  }
+}
