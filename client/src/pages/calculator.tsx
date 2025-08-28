@@ -55,11 +55,10 @@ export default function Calculator() {
         {/* Welcome Section */}
         <div className="mb-8 text-center">
           <h1 className="text-4xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent mb-4">
-            Blox Fruits Values Calculator - Get Accurate Trade Values Instantly
+            Blox Fruits Values Calculator – Check Fair Trades Instantly
           </h1>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Don't get scammed! Use our FREE Blox Fruits values calculator to check exact fruit values, 
-            calculate fair trades, and dominate the trading market. Updated daily with latest prices!
+            Use our accurate Blox Fruits values calculator to check trade values, compare fruits, and avoid scams. Updated daily with live market data, fair trade analysis, and trending values.
           </p>
         </div>
 
