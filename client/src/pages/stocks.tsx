@@ -138,7 +138,7 @@ export default function Stocks() {
           <div className="flex items-center justify-center gap-4 mb-6">
             <div className="flex items-center gap-2 text-sm text-muted-foreground">
               <RefreshCw className="h-4 w-4" />
-              <span>Live Data from DarkKitsune.com</span>
+              <span>Live Market Data</span>
             </div>
             <div className="flex items-center gap-2 text-sm text-green-600">
               <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>

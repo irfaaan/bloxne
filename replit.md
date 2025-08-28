@@ -7,7 +7,7 @@ BloxCalc Pro is a web-based trading calculator designed for the Blox Fruits game
 ## Recent Changes
 
 ### Database Updates (January 2025)
-- **Data Sources**: Updated with latest values from DarkKitsune.com and BloxFruitsValues.com
+- **Data Sources**: Updated with latest market values from live trading activity and community analysis
 - **New Items Added**: Dragon Token (800M value) as new mythical fruit
 - **Gamepass Database**: Added comprehensive gamepass trading values including Fruit Notifier (700M), Dark Blade (315M), and more
 - **Major Value Changes**: Lightning increased from 7M to 80M, Pain from 2M to 22M, various rarity adjustments

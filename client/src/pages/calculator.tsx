@@ -180,7 +180,7 @@ export default function Calculator() {
                   Data Sources
                 </h3>
                 <p className="text-sm text-muted-foreground">
-                  Aggregating from trusted sources like DarkKitsune.com and BloxFruitsValues.com for comprehensive coverage.
+                  Aggregating from live trading activity and community analysis for comprehensive market coverage.
                 </p>
               </div>
 
