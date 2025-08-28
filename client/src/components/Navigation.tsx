@@ -13,12 +13,12 @@ export default function Navigation() {
               <div className="flex items-center space-x-3 cursor-pointer">
                 <img 
                   src={logoUrl} 
-                  alt="BloxCalc Pro - Blox Fruits Trading Calculator" 
+                  alt="Blox Values Calculator - Professional Trading Analysis" 
                   className="h-10 w-10 object-contain"
                   data-testid="logo-image"
                 />
                 <span className="text-xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent hidden sm:inline">
-                  BloxCalc Pro
+                  Blox Values Calculator
                 </span>
               </div>
             </Link>
