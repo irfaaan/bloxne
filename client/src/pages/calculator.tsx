@@ -69,92 +69,125 @@ export default function Calculator() {
           />
         </div>
 
-        {/* High-Demand Blox Fruits Values */}
-        <div className="mb-12">
-          <div className="text-center mb-6">
-            <h2 className="text-3xl font-bold mb-3">Most Demanded Blox Fruits Values</h2>
-            <p className="text-muted-foreground max-w-2xl mx-auto mb-4">
-              Check current values for the most trending and high-demand Blox Fruits. These items have the highest trading activity and best market demand ratings.
+        {/* How to Use Blox Fruits Calculator */}
+        <div className="mt-12 max-w-4xl mx-auto">
+          <div className="text-center mb-8">
+            <h2 className="text-2xl font-bold mb-4">How to Use Our Blox Fruits Values Calculator</h2>
+            <p className="text-muted-foreground max-w-2xl mx-auto">
+              Get accurate trade calculations in seconds with our easy-to-use calculator. Simply drag fruits to compare values and make fair trades.
             </p>
-            <Link href="/values">
-              <Button size="lg" className="mt-2">
-                View All Blox Fruits Values →
-              </Button>
-            </Link>
           </div>
-          <FruitLibrary 
-            isPermanent={isPermanent}
-            onFruitClick={handleFruitClick}
-            isLimited={true}
-          />
+
+          <div className="grid md:grid-cols-3 gap-6 mb-8">
+            <div className="text-center p-6 bg-card rounded-lg border">
+              <div className="text-3xl mb-4">🎯</div>
+              <h3 className="text-lg font-semibold mb-3">Step 1: Add Fruits</h3>
+              <p className="text-sm text-muted-foreground">
+                Drag and drop fruits into "Your Offer" and "Their Offer" sections to start comparing values instantly.
+              </p>
+            </div>
+            
+            <div className="text-center p-6 bg-card rounded-lg border">
+              <div className="text-3xl mb-4">⚖️</div>
+              <h3 className="text-lg font-semibold mb-3">Step 2: Check Balance</h3>
+              <p className="text-sm text-muted-foreground">
+                See real-time value differences and trade fairness indicators to ensure you get the best deal.
+              </p>
+            </div>
+            
+            <div className="text-center p-6 bg-card rounded-lg border">
+              <div className="text-3xl mb-4">✅</div>
+              <h3 className="text-lg font-semibold mb-3">Step 3: Make Trade</h3>
+              <p className="text-sm text-muted-foreground">
+                Use the calculated results to negotiate fair trades and avoid getting scammed in Blox Fruits.
+              </p>
+            </div>
+          </div>
         </div>
 
-        {/* Stock Trading Opportunities */}
-        <div className="mb-12">
-          <div className="text-center mb-6">
-            <h2 className="text-3xl font-bold mb-3">Blox Fruits Stock Prices & Trading</h2>
-            <p className="text-muted-foreground max-w-2xl mx-auto mb-4">
-              Monitor live stock availability and find the best buying opportunities. Track which fruits are in stock now for immediate purchase.
-            </p>
-            <Link href="/stocks">
-              <Button variant="outline" size="lg" className="mt-2">
-                View Full Stock Market →
-              </Button>
-            </Link>
-          </div>
-          <StockTracker isPreview={true} />
-        </div>
-
-        {/* SEO Content Section */}
+        {/* Blox Fruits Trading Tips */}
         <div className="mt-16 max-w-4xl mx-auto">
           <div className="text-center mb-8">
-            <h2 className="text-3xl font-bold mb-4">Ultimate Blox Fruits Values Calculator & Trading Guide</h2>
-            <p className="text-lg text-muted-foreground leading-relaxed">
-              Our advanced Blox Fruits values calculator provides real-time fruit prices, demand analysis, and fair trade calculations for all Roblox Blox Fruits players. Whether you're trading Dragon, Leopard, Dough, or any legendary fruit, get accurate values instantly. Track market trends, identify overpaid items, and make profitable trades with confidence using the most trusted Blox Fruits value checker in the community.
+            <h2 className="text-2xl font-bold mb-4">Essential Blox Fruits Trading Tips</h2>
+            <p className="text-muted-foreground max-w-2xl mx-auto">
+              Master the art of trading with these expert tips and strategies for profitable Blox Fruits exchanges.
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-8 mb-8">
-            <div>
-              <h3 className="text-xl font-semibold mb-4">Blox Fruits Calculator Features</h3>
-              <ul className="space-y-3 text-muted-foreground">
-                <li className="flex items-start gap-3">
-                  <span className="text-green-500 mt-1">✓</span>
-                  <span>Precise Blox Fruits values calculator with regular & permanent prices</span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <span className="text-green-500 mt-1">✓</span>
-                  <span>Complete fruit values database with demand ratings & trading tips</span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <span className="text-green-500 mt-1">✓</span>
-                  <span>Live market trends analysis for profitable Blox Fruits trading</span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <span className="text-green-500 mt-1">✓</span>
-                  <span>Instant fair trade calculator with value difference checking</span>
-                </li>
-              </ul>
+          <div className="grid md:grid-cols-2 gap-8">
+            <div className="space-y-6">
+              <div className="p-6 bg-card rounded-lg border">
+                <h3 className="text-lg font-semibold mb-3">💰 Value Assessment</h3>
+                <ul className="space-y-2 text-sm text-muted-foreground">
+                  <li className="flex items-start gap-2">
+                    <span className="text-blue-500 mt-1">•</span>
+                    <span>Always verify current fruit values before trading</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-blue-500 mt-1">•</span>
+                    <span>Check demand ratings for trading difficulty</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-blue-500 mt-1">•</span>
+                    <span>Consider market trends when making offers</span>
+                  </li>
+                </ul>
+              </div>
+
+              <div className="p-6 bg-card rounded-lg border">
+                <h3 className="text-lg font-semibold mb-3">🛡️ Avoid Scams</h3>
+                <ul className="space-y-2 text-sm text-muted-foreground">
+                  <li className="flex items-start gap-2">
+                    <span className="text-red-500 mt-1">•</span>
+                    <span>Never trust player value claims without verification</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-red-500 mt-1">•</span>
+                    <span>Be cautious with "too good to be true" offers</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-red-500 mt-1">•</span>
+                    <span>Use official trading servers for safer exchanges</span>
+                  </li>
+                </ul>
+              </div>
             </div>
 
-            <div className="space-y-4">
-              <div className="p-4 bg-card rounded-lg border">
-                <h4 className="font-semibold mb-2">Accurate Blox Fruits Values</h4>
-                <p className="text-sm text-muted-foreground">
-                  Get exact Blox Fruits values and avoid trading scams. Our calculator displays current market prices for all fruits, updated daily with authentic trading data.
-                </p>
+            <div className="space-y-6">
+              <div className="p-6 bg-card rounded-lg border">
+                <h3 className="text-lg font-semibold mb-3">📈 Profitable Trading</h3>
+                <ul className="space-y-2 text-sm text-muted-foreground">
+                  <li className="flex items-start gap-2">
+                    <span className="text-green-500 mt-1">•</span>
+                    <span>Focus on high-demand fruits for easier trades</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-green-500 mt-1">•</span>
+                    <span>Look for undervalued opportunities</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-green-500 mt-1">•</span>
+                    <span>Track rising trends for future profits</span>
+                  </li>
+                </ul>
               </div>
-              <div className="p-4 bg-card rounded-lg border">
-                <h4 className="font-semibold mb-2">Smart Trading Insights</h4>
-                <p className="text-sm text-muted-foreground">
-                  Make informed trading decisions with demand analysis, trend tracking, and profit calculations. Find undervalued fruits and identify overpaid trading opportunities.
-                </p>
-              </div>
-              <div className="p-4 bg-card rounded-lg border">
-                <h4 className="font-semibold mb-2">Real-Time Stock Updates</h4>
-                <p className="text-sm text-muted-foreground">
-                  Monitor fruit availability and stock rotation times. Never miss buying opportunities with our live stock tracking system for optimal trading strategies.
-                </p>
+
+              <div className="p-6 bg-card rounded-lg border">
+                <h3 className="text-lg font-semibold mb-3">⏰ Timing Strategy</h3>
+                <ul className="space-y-2 text-sm text-muted-foreground">
+                  <li className="flex items-start gap-2">
+                    <span className="text-purple-500 mt-1">•</span>
+                    <span>Monitor stock rotations for buying opportunities</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-purple-500 mt-1">•</span>
+                    <span>Trade during peak server activity</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-purple-500 mt-1">•</span>
+                    <span>Stay updated with game meta changes</span>
+                  </li>
+                </ul>
               </div>
             </div>
           </div>
