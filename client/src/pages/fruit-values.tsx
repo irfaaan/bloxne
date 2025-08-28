@@ -321,7 +321,7 @@ export default function FruitValues() {
                   </Link>
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-                  {(searchTerm || selectedRarity !== "all" ? filteredFruits : fruits.slice(0, 8)).map(fruit => (
+                  {(searchTerm || selectedRarity !== "all" ? filteredFruits : fruits).map(fruit => (
                     <FruitCard key={fruit.name} fruit={fruit} />
                   ))}
                 </div>
