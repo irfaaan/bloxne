@@ -1,4 +1,4 @@
-<svg width="280" height="80" viewBox="0 0 280 80" xmlns="http://www.w3.org/2000/svg">
+<svg width="320" height="90" viewBox="0 0 320 90" xmlns="http://www.w3.org/2000/svg">
   <defs>
     <!-- Glassmorphism gradients -->
     <linearGradient id="glassGradient" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -19,9 +19,9 @@
     </linearGradient>
     
     <linearGradient id="textGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-      <stop offset="0%" style="stop-color:#3b82f6" />
-      <stop offset="50%" style="stop-color:#8b5cf6" />
-      <stop offset="100%" style="stop-color:#06b6d4" />
+      <stop offset="0%" style="stop-color:#ffffff" />
+      <stop offset="50%" style="stop-color:#e0e7ff" />
+      <stop offset="100%" style="stop-color:#ddd6fe" />
     </linearGradient>
     
     <!-- Blur filters -->
@@ -43,12 +43,12 @@
   </defs>
   
   <!-- Background glassmorphism panel -->
-  <rect x="5" y="10" width="270" height="60" rx="16" ry="16" 
+  <rect x="5" y="10" width="310" height="70" rx="18" ry="18" 
         fill="url(#glassGradient)" 
-        stroke="rgba(255,255,255,0.2)" 
-        stroke-width="1"
+        stroke="rgba(255,255,255,0.3)" 
+        stroke-width="1.5"
         filter="url(#dropshadow)"
-        opacity="0.8"/>
+        opacity="0.9"/>
   
   <!-- Calculator Icon (Left side) -->
   <g transform="translate(20,20)">
@@ -119,20 +119,22 @@
   </g>
   
   <!-- Title Text -->
-  <g transform="translate(95,25)">
+  <g transform="translate(100,28)">
     <text x="0" y="0" 
           font-family="system-ui, -apple-system, sans-serif" 
-          font-size="16" 
-          font-weight="800" 
+          font-size="20" 
+          font-weight="900" 
           fill="url(#textGradient)"
-          filter="url(#glow)">BLOX FRUITS</text>
+          filter="url(#glow)"
+          letter-spacing="0.5px">BLOX FRUITS</text>
     
-    <text x="0" y="20" 
+    <text x="0" y="22" 
           font-family="system-ui, -apple-system, sans-serif" 
-          font-size="14" 
-          font-weight="600" 
+          font-size="16" 
+          font-weight="700" 
           fill="url(#textGradient)"
-          opacity="0.9">VALUES CALCULATOR</text>
+          opacity="0.95"
+          letter-spacing="1px">VALUES CALCULATOR</text>
   </g>
   
   <!-- Decorative elements -->
@@ -151,7 +153,7 @@
   </g>
   
   <!-- Overall glassmorphism overlay -->
-  <rect x="5" y="10" width="270" height="25" rx="16" ry="16" 
-        fill="rgba(255,255,255,0.08)" 
-        opacity="0.7"/>
+  <rect x="5" y="10" width="310" height="30" rx="18" ry="18" 
+        fill="rgba(255,255,255,0.12)" 
+        opacity="0.8"/>
 </svg>
