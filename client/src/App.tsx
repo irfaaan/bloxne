@@ -16,6 +16,7 @@ import Contact from "@/pages/contact";
 import FAQ from "@/pages/faq";
 import TradingGuide from "@/pages/trading-guide";
 import Updates from "@/pages/updates";
+import Stocks from "@/pages/stocks";
 import NotFound from "@/pages/not-found";
 
 function Router() {
@@ -35,6 +36,7 @@ function Router() {
           <Route path="/faq" component={FAQ} />
           <Route path="/trading-guide" component={TradingGuide} />
           <Route path="/updates" component={Updates} />
+          <Route path="/stocks" component={Stocks} />
           <Route component={NotFound} />
         </Switch>
         <Footer />
