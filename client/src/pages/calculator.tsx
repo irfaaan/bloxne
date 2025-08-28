@@ -84,6 +84,12 @@ export default function Calculator() {
 
         {/* Main Calculator Section */}
         <div className="mb-8">
+          <div className="text-center mb-6">
+            <h2 className="text-3xl font-bold mb-3">Blox Fruits Trade Calculator</h2>
+            <p className="text-muted-foreground max-w-xl mx-auto">
+              Drag and drop fruits to compare values, calculate fair trades, and see the exact difference instantly.
+            </p>
+          </div>
           <TradeCalculator 
             ref={calculatorRef}
             isPermanent={isPermanent} 
