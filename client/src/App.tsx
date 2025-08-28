@@ -18,6 +18,8 @@ import TradingGuide from "@/pages/trading-guide";
 import Updates from "@/pages/updates";
 import Stocks from "@/pages/stocks";
 import FruitsSEO from "@/pages/fruits-seo";
+import MarketTrends from "@/pages/market-trends";
+import TopValues from "@/pages/top-values";
 import NotFound from "@/pages/not-found";
 
 function Router() {
@@ -39,6 +41,8 @@ function Router() {
           <Route path="/updates" component={Updates} />
           <Route path="/stocks" component={Stocks} />
           <Route path="/fruits/:slug" component={FruitsSEO} />
+          <Route path="/market-trends" component={MarketTrends} />
+          <Route path="/top-values" component={TopValues} />
           <Route component={NotFound} />
         </Switch>
         <Footer />

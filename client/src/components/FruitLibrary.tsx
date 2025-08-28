@@ -1,4 +1,5 @@
 import { useState, useMemo } from "react";
+import { Link } from "wouter";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -166,12 +167,25 @@ export function FruitLibrary({ isPermanent, onFruitClick }: FruitLibraryProps) {
         </div>
 
         <div className="space-y-6">
+          {/* Market Insights Header */}
+          <div className="text-center">
+            <h2 className="text-3xl font-bold mb-3">Blox Fruits Market Trends</h2>
+            <p className="text-muted-foreground max-w-md mx-auto">
+              See the most valuable fruits, stable trades, and rising items in the market right now.
+            </p>
+          </div>
+
           {/* Top Values */}
           <Card className="glass-effect rounded-xl p-6">
-            <h3 className="text-lg font-semibold mb-4 flex items-center">
-              <i className="fas fa-crown text-accent mr-2"></i>
-              Top Values
-            </h3>
+            <div className="flex items-center justify-between mb-4">
+              <h3 className="text-lg font-semibold flex items-center">
+                <i className="fas fa-crown text-accent mr-2"></i>
+                Top Values
+              </h3>
+              <Link href="/top-values">
+                <Button variant="outline" size="sm">View All</Button>
+              </Link>
+            </div>
             <div className="space-y-3">
               {topFruits.map(([name, fruit]) => {
                 const currentValue = isPermanent ? fruit.permanentValue : fruit.value;
@@ -190,10 +204,15 @@ export function FruitLibrary({ isPermanent, onFruitClick }: FruitLibraryProps) {
 
           {/* Market Trends */}
           <Card className="glass-effect rounded-xl p-6">
-            <h3 className="text-lg font-semibold mb-4 flex items-center">
-              <i className="fas fa-chart-line text-secondary mr-2"></i>
-              Market Trends
-            </h3>
+            <div className="flex items-center justify-between mb-4">
+              <h3 className="text-lg font-semibold flex items-center">
+                <i className="fas fa-chart-line text-secondary mr-2"></i>
+                Market Trends
+              </h3>
+              <Link href="/market-trends">
+                <Button variant="outline" size="sm">View All</Button>
+              </Link>
+            </div>
             <div className="space-y-3">
               <div className="flex items-center justify-between">
                 <span className="text-sm">Overpaid Items</span>
