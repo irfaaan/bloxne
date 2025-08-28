@@ -55,11 +55,11 @@ export default function Calculator() {
         {/* Welcome Section */}
         <div className="mb-8 text-center">
           <h1 className="text-4xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent mb-4">
-            BloxCalc Pro - Trading Calculator
+            Blox Fruits Values Calculator - Get Accurate Trade Values Instantly
           </h1>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            The ultimate tool for Blox Fruits trading. Calculate accurate trade values, track market trends, 
-            and make informed decisions with our comprehensive fruit database.
+            Don't get scammed! Use our FREE Blox Fruits values calculator to check exact fruit values, 
+            calculate fair trades, and dominate the trading market. Updated daily with latest prices!
           </p>
         </div>
 
