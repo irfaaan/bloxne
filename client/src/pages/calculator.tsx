@@ -70,10 +70,18 @@ export default function Calculator() {
         </div>
 
         {/* Fruits Library */}
-        <FruitLibrary 
-          isPermanent={isPermanent}
-          onFruitClick={handleFruitClick}
-        />
+        <div>
+          <div className="text-center mb-6">
+            <h2 className="text-3xl font-bold mb-3">Blox Fruits Values Library</h2>
+            <p className="text-muted-foreground max-w-xl mx-auto">
+              Explore all Blox Fruits with their live values, demand ratings, and trends. Updated daily to reflect the trading market.
+            </p>
+          </div>
+          <FruitLibrary 
+            isPermanent={isPermanent}
+            onFruitClick={handleFruitClick}
+          />
+        </div>
       </div>
     </div>
   );

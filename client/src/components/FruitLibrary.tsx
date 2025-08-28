@@ -14,14 +14,59 @@ interface FruitLibraryProps {
 export function FruitLibrary({ isPermanent, onFruitClick }: FruitLibraryProps) {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedRarity, setSelectedRarity] = useState<string>("all");
+  const [sortBy, setSortBy] = useState<string>("value-desc");
+  const [valueRange, setValueRange] = useState<string>("all");
 
   const filteredFruits = useMemo(() => {
-    return Object.entries(fruitsDatabase).filter(([name, fruit]) => {
+    let fruits = Object.entries(fruitsDatabase).filter(([name, fruit]) => {
       const matchesSearch = name.toLowerCase().includes(searchTerm.toLowerCase());
       const matchesRarity = selectedRarity === "all" || fruit.rarity === selectedRarity;
-      return matchesSearch && matchesRarity;
+      
+      // Value range filter
+      let matchesValueRange = true;
+      if (valueRange !== "all") {
+        const currentValue = isPermanent ? fruit.permanentValue : fruit.value;
+        switch (valueRange) {
+          case "under-1m":
+            matchesValueRange = currentValue < 1000000;
+            break;
+          case "1m-10m":
+            matchesValueRange = currentValue >= 1000000 && currentValue < 10000000;
+            break;
+          case "10m-100m":
+            matchesValueRange = currentValue >= 10000000 && currentValue < 100000000;
+            break;
+          case "over-100m":
+            matchesValueRange = currentValue >= 100000000;
+            break;
+        }
+      }
+      
+      return matchesSearch && matchesRarity && matchesValueRange;
     });
-  }, [searchTerm, selectedRarity]);
+
+    // Apply sorting
+    switch (sortBy) {
+      case "alphabetical":
+        fruits.sort(([a], [b]) => a.localeCompare(b));
+        break;
+      case "value-desc":
+        fruits.sort(([, a], [, b]) => (isPermanent ? b.permanentValue - a.permanentValue : b.value - a.value));
+        break;
+      case "value-asc":
+        fruits.sort(([, a], [, b]) => (isPermanent ? a.permanentValue - b.permanentValue : a.value - b.value));
+        break;
+      case "demand":
+        fruits.sort(([, a], [, b]) => b.demand - a.demand);
+        break;
+      case "rarity":
+        const rarityOrder = { "Mythical": 5, "Legendary": 4, "Rare": 3, "Uncommon": 2, "Common": 1 };
+        fruits.sort(([, a], [, b]) => rarityOrder[b.rarity as keyof typeof rarityOrder] - rarityOrder[a.rarity as keyof typeof rarityOrder]);
+        break;
+    }
+
+    return fruits;
+  }, [searchTerm, selectedRarity, sortBy, valueRange, isPermanent]);
 
   const topFruits = useMemo(() => {
     return Object.entries(fruitsDatabase)
@@ -63,18 +108,58 @@ export function FruitLibrary({ isPermanent, onFruitClick }: FruitLibraryProps) {
                 />
                 <i className="fas fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground"></i>
               </div>
-              <div className="flex flex-wrap gap-2">
-                {rarities.map((rarity) => (
-                  <Button
-                    key={rarity}
-                    variant={selectedRarity === rarity ? "default" : "secondary"}
-                    size="sm"
-                    onClick={() => setSelectedRarity(rarity)}
-                    data-testid={`filter-${rarity.toLowerCase()}`}
-                  >
-                    {rarity}
-                  </Button>
-                ))}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {/* Rarity Filter */}
+                <div>
+                  <label className="text-sm font-medium mb-2 block">Filter by Rarity</label>
+                  <div className="flex flex-wrap gap-2">
+                    {rarities.map((rarity) => (
+                      <Button
+                        key={rarity}
+                        variant={selectedRarity === rarity ? "default" : "secondary"}
+                        size="sm"
+                        onClick={() => setSelectedRarity(rarity)}
+                        data-testid={`filter-${rarity.toLowerCase()}`}
+                      >
+                        {rarity}
+                      </Button>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Value Range Filter */}
+                <div>
+                  <label className="text-sm font-medium mb-2 block">Value Range</label>
+                  <Select value={valueRange} onValueChange={setValueRange}>
+                    <SelectTrigger className="w-full">
+                      <SelectValue placeholder="All values" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="all">All Values</SelectItem>
+                      <SelectItem value="under-1m">Under 1M</SelectItem>
+                      <SelectItem value="1m-10m">1M - 10M</SelectItem>
+                      <SelectItem value="10m-100m">10M - 100M</SelectItem>
+                      <SelectItem value="over-100m">Over 100M</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+              </div>
+
+              {/* Sort Options */}
+              <div>
+                <label className="text-sm font-medium mb-2 block">Sort by</label>
+                <Select value={sortBy} onValueChange={setSortBy}>
+                  <SelectTrigger className="w-full md:w-48">
+                    <SelectValue placeholder="Sort by..." />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="value-desc">Highest Value</SelectItem>
+                    <SelectItem value="value-asc">Lowest Value</SelectItem>
+                    <SelectItem value="alphabetical">Alphabetical</SelectItem>
+                    <SelectItem value="demand">Highest Demand</SelectItem>
+                    <SelectItem value="rarity">Rarity</SelectItem>
+                  </SelectContent>
+                </Select>
               </div>
             </div>
           </Card>
