@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import { useLocation } from "wouter";
+import { useLocation, Link } from "wouter";
 import { TradeCalculator, type TradeCalculatorRef } from "@/components/TradeCalculator";
 import { StockTracker } from "@/components/StockTracker";
 import { FruitLibrary } from "@/components/FruitLibrary";
@@ -69,63 +69,91 @@ export default function Calculator() {
           />
         </div>
 
-        {/* Fruits Library */}
-        <div>
+        {/* High-Demand Blox Fruits Values */}
+        <div className="mb-12">
           <div className="text-center mb-6">
-            <h2 className="text-3xl font-bold mb-3">Blox Fruits Values Library</h2>
-            <p className="text-muted-foreground max-w-xl mx-auto">
-              Explore all Blox Fruits with their live values, demand ratings, and trends. Updated daily to reflect the trading market.
+            <h2 className="text-3xl font-bold mb-3">Most Demanded Blox Fruits Values</h2>
+            <p className="text-muted-foreground max-w-2xl mx-auto mb-4">
+              Check current values for the most trending and high-demand Blox Fruits. These items have the highest trading activity and best market demand ratings.
             </p>
+            <Link href="/values">
+              <Button size="lg" className="mt-2">
+                View All Blox Fruits Values →
+              </Button>
+            </Link>
           </div>
           <FruitLibrary 
             isPermanent={isPermanent}
             onFruitClick={handleFruitClick}
+            isLimited={true}
           />
+        </div>
+
+        {/* Stock Trading Opportunities */}
+        <div className="mb-12">
+          <div className="text-center mb-6">
+            <h2 className="text-3xl font-bold mb-3">Blox Fruits Stock Prices & Trading</h2>
+            <p className="text-muted-foreground max-w-2xl mx-auto mb-4">
+              Monitor live stock availability and find the best buying opportunities. Track which fruits are in stock now for immediate purchase.
+            </p>
+            <Link href="/stocks">
+              <Button variant="outline" size="lg" className="mt-2">
+                View Full Stock Market →
+              </Button>
+            </Link>
+          </div>
+          <StockTracker isPreview={true} />
         </div>
 
         {/* SEO Content Section */}
         <div className="mt-16 max-w-4xl mx-auto">
           <div className="text-center mb-8">
-            <h2 className="text-3xl font-bold mb-4">About Blox Fruits Values Calculator</h2>
+            <h2 className="text-3xl font-bold mb-4">Ultimate Blox Fruits Values Calculator & Trading Guide</h2>
             <p className="text-lg text-muted-foreground leading-relaxed">
-              The Blox Fruits Values Calculator is the #1 tool for Roblox players to find accurate fruit prices, demand levels, and trade fairness. Our tool covers legendary fruits like Dragon, Leopard, Dough, and more. With live updates and market insights, you'll always know the true value of your items before trading.
+              Our advanced Blox Fruits values calculator provides real-time fruit prices, demand analysis, and fair trade calculations for all Roblox Blox Fruits players. Whether you're trading Dragon, Leopard, Dough, or any legendary fruit, get accurate values instantly. Track market trends, identify overpaid items, and make profitable trades with confidence using the most trusted Blox Fruits value checker in the community.
             </p>
           </div>
 
           <div className="grid md:grid-cols-2 gap-8 mb-8">
             <div>
-              <h3 className="text-xl font-semibold mb-4">Key Features</h3>
+              <h3 className="text-xl font-semibold mb-4">Blox Fruits Calculator Features</h3>
               <ul className="space-y-3 text-muted-foreground">
                 <li className="flex items-start gap-3">
                   <span className="text-green-500 mt-1">✓</span>
-                  <span>Accurate trade calculator (regular & permanent values)</span>
+                  <span>Precise Blox Fruits values calculator with regular & permanent prices</span>
                 </li>
                 <li className="flex items-start gap-3">
                   <span className="text-green-500 mt-1">✓</span>
-                  <span>Full Blox Fruits library with values & demand</span>
+                  <span>Complete fruit values database with demand ratings & trading tips</span>
                 </li>
                 <li className="flex items-start gap-3">
                   <span className="text-green-500 mt-1">✓</span>
-                  <span>Daily updated market trends & overpaid items</span>
+                  <span>Live market trends analysis for profitable Blox Fruits trading</span>
                 </li>
                 <li className="flex items-start gap-3">
                   <span className="text-green-500 mt-1">✓</span>
-                  <span>Fair trade analysis with difference calculation</span>
+                  <span>Instant fair trade calculator with value difference checking</span>
                 </li>
               </ul>
             </div>
 
             <div className="space-y-4">
               <div className="p-4 bg-card rounded-lg border">
-                <h4 className="font-semibold mb-2">Trading Safety</h4>
+                <h4 className="font-semibold mb-2">Accurate Blox Fruits Values</h4>
                 <p className="text-sm text-muted-foreground">
-                  Avoid scams by checking exact fruit values before accepting any trade. Our calculator shows real market prices updated daily.
+                  Get exact Blox Fruits values and avoid trading scams. Our calculator displays current market prices for all fruits, updated daily with authentic trading data.
                 </p>
               </div>
               <div className="p-4 bg-card rounded-lg border">
-                <h4 className="font-semibold mb-2">Market Intelligence</h4>
+                <h4 className="font-semibold mb-2">Smart Trading Insights</h4>
                 <p className="text-sm text-muted-foreground">
-                  Track demand trends, identify overpaid fruits, and find the best trading opportunities with our live market data.
+                  Make informed trading decisions with demand analysis, trend tracking, and profit calculations. Find undervalued fruits and identify overpaid trading opportunities.
+                </p>
+              </div>
+              <div className="p-4 bg-card rounded-lg border">
+                <h4 className="font-semibold mb-2">Real-Time Stock Updates</h4>
+                <p className="text-sm text-muted-foreground">
+                  Monitor fruit availability and stock rotation times. Never miss buying opportunities with our live stock tracking system for optimal trading strategies.
                 </p>
               </div>
             </div>

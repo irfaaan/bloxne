@@ -10,9 +10,10 @@ import { fruitsDatabase, formatValue, type FruitData } from "@/lib/fruitsDatabas
 interface FruitLibraryProps {
   isPermanent: boolean;
   onFruitClick: (fruitName: string) => void;
+  isLimited?: boolean; // Show only trending/high-demand fruits
 }
 
-export function FruitLibrary({ isPermanent, onFruitClick }: FruitLibraryProps) {
+export function FruitLibrary({ isPermanent, onFruitClick, isLimited = false }: FruitLibraryProps) {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedRarity, setSelectedRarity] = useState<string>("all");
   const [sortBy, setSortBy] = useState<string>("value-desc");
@@ -90,10 +91,26 @@ export function FruitLibrary({ isPermanent, onFruitClick }: FruitLibraryProps) {
 
   const rarities = ["all", "Mythical", "Legendary", "Rare", "Uncommon", "Common"];
 
+  // Get trending and high-demand fruits for limited mode
+  const trendingFruits = useMemo(() => {
+    return Object.entries(fruitsDatabase)
+      .filter(([, fruit]) => fruit.demand >= 7 || fruit.trend === "Rising" || fruit.trend === "Soon")
+      .sort(([, a], [, b]) => {
+        // Sort by demand first, then by value
+        if (b.demand !== a.demand) return b.demand - a.demand;
+        return (isPermanent ? b.permanentValue - a.permanentValue : b.value - a.value);
+      })
+      .slice(0, 12); // Show top 12 trending fruits
+  }, [isPermanent]);
+
+  const displayFruits = isLimited ? trendingFruits : filteredFruits;
+
   return (
     <div className="space-y-8">
-      {/* Quick Stats and Search */}
-      <div className="grid lg:grid-cols-3 gap-6">
+      {!isLimited && (
+        <>
+          {/* Quick Stats and Search */}
+          <div className="grid lg:grid-cols-3 gap-6">
         <div className="lg:col-span-2">
           <Card className="glass-effect rounded-xl p-6">
             <h3 className="text-lg font-semibold mb-4">Find Fruits</h3>
@@ -230,6 +247,8 @@ export function FruitLibrary({ isPermanent, onFruitClick }: FruitLibraryProps) {
           </Card>
         </div>
       </div>
+        </>
+      )}
 
       {/* Fruits Grid */}
       <Card className="glass-effect rounded-xl p-6">
@@ -254,7 +273,7 @@ export function FruitLibrary({ isPermanent, onFruitClick }: FruitLibraryProps) {
         </div>
 
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-8 gap-4" data-testid="fruits-grid">
-          {filteredFruits.map(([name, fruit]) => (
+          {displayFruits.map(([name, fruit]) => (
             <FruitCard
               key={name}
               fruit={fruit}
@@ -264,7 +283,7 @@ export function FruitLibrary({ isPermanent, onFruitClick }: FruitLibraryProps) {
           ))}
         </div>
 
-        {filteredFruits.length === 0 && (
+        {displayFruits.length === 0 && (
           <div className="text-center py-12">
             <i className="fas fa-search text-4xl text-muted-foreground mb-4"></i>
             <p className="text-muted-foreground">No fruits found matching your criteria.</p>
