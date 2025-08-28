@@ -1,21 +1,42 @@
 import { Link } from "wouter";
+import { useEffect } from "react";
 
 export default function AboutUs() {
+  useEffect(() => {
+    document.title = "About Us - Blox Fruits Values Calculator";
+    
+    // Add page-specific schema markup
+    const script = document.createElement('script');
+    script.type = 'application/ld+json';
+    script.innerHTML = JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "AboutPage",
+      "name": "About Blox Fruits Values Calculator",
+      "description": "Learn about our mission to provide accurate Blox Fruits trading values and help players make fair trades",
+      "url": "https://bloxfruitvaluescalculator.com/about-us"
+    });
+    document.head.appendChild(script);
+    
+    return () => {
+      document.head.removeChild(script);
+    };
+  }, []);
+
   return (
-    <div className="bg-background text-foreground">
+    <main className="bg-background text-foreground" role="main">
       <div className="max-w-4xl mx-auto px-4 py-16">
         
         {/* Hero Section */}
-        <div className="text-center mb-12">
+        <header className="text-center mb-12">
           <h1 className="text-4xl font-bold mb-6">About Us</h1>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
             We're passionate Blox Fruits players dedicated to providing the most accurate and reliable trading calculator for the community.
           </p>
-        </div>
+        </header>
 
         {/* Our Mission */}
-        <div className="mb-16">
-          <h2 className="text-3xl font-bold mb-6 text-center">Our Mission</h2>
+        <section className="mb-16" aria-labelledby="mission-heading">
+          <h2 id="mission-heading" className="text-3xl font-bold mb-6 text-center">Our Mission</h2>
           <div className="bg-card p-8 rounded-lg border">
             <p className="text-lg text-muted-foreground leading-relaxed mb-6">
               At Blox Fruits Values Calculator, we believe every player deserves access to accurate, up-to-date trading information. Our mission is to eliminate trading scams, promote fair exchanges, and empower players with the knowledge they need to make informed trading decisions.
@@ -24,11 +45,11 @@ export default function AboutUs() {
               We understand the frustration of unfair trades and the complexity of tracking ever-changing fruit values. That's why we've built the most comprehensive and user-friendly calculator in the Blox Fruits community.
             </p>
           </div>
-        </div>
+        </section>
 
         {/* What We Do */}
-        <div className="mb-16">
-          <h2 className="text-3xl font-bold mb-8 text-center">What We Do</h2>
+        <section className="mb-16" aria-labelledby="services-heading">
+          <h2 id="services-heading" className="text-3xl font-bold mb-8 text-center">What We Do</h2>
           <div className="grid md:grid-cols-2 gap-8">
             <div className="p-6 bg-card rounded-lg border">
               <div className="text-3xl mb-4">📊</div>
@@ -62,11 +83,11 @@ export default function AboutUs() {
               </p>
             </div>
           </div>
-        </div>
+        </section>
 
         {/* Our Values */}
-        <div className="mb-16">
-          <h2 className="text-3xl font-bold mb-8 text-center">Our Values</h2>
+        <section className="mb-16" aria-labelledby="values-heading">
+          <h2 id="values-heading" className="text-3xl font-bold mb-8 text-center">Our Values</h2>
           <div className="space-y-6">
             <div className="p-6 bg-card rounded-lg border">
               <h3 className="text-xl font-semibold mb-3 flex items-center gap-3">
@@ -98,11 +119,11 @@ export default function AboutUs() {
               </p>
             </div>
           </div>
-        </div>
+        </section>
 
         {/* Our Data Sources */}
-        <div className="mb-16">
-          <h2 className="text-3xl font-bold mb-8 text-center">How We Gather Data</h2>
+        <section className="mb-16" aria-labelledby="data-heading">
+          <h2 id="data-heading" className="text-3xl font-bold mb-8 text-center">How We Gather Data</h2>
           <div className="bg-card p-8 rounded-lg border">
             <p className="text-lg text-muted-foreground leading-relaxed mb-6">
               Our values are collected through comprehensive monitoring and analysis:
@@ -126,11 +147,11 @@ export default function AboutUs() {
               </li>
             </ul>
           </div>
-        </div>
+        </section>
 
         {/* Contact Section */}
-        <div className="text-center">
-          <h2 className="text-3xl font-bold mb-6">Get In Touch</h2>
+        <section className="text-center" aria-labelledby="contact-heading">
+          <h2 id="contact-heading" className="text-3xl font-bold mb-6">Get In Touch</h2>
           <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto">
             Have questions, feedback, or suggestions? We'd love to hear from you. Our team is committed to continuously improving our tools based on community input.
           </p>
@@ -146,8 +167,8 @@ export default function AboutUs() {
               </button>
             </Link>
           </div>
-        </div>
+        </section>
       </div>
-    </div>
+    </main>
   );
 }

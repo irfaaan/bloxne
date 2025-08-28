@@ -46,8 +46,42 @@ export default function Calculator() {
     }
   };
 
+  useEffect(() => {
+    // Add page-specific schema markup
+    const script = document.createElement('script');
+    script.type = 'application/ld+json';
+    script.innerHTML = JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      "name": "Blox Fruits Trading Calculator",
+      "description": "Calculate fair trades, compare fruit values, and check trade differences instantly",
+      "url": "https://bloxfruitvaluescalculator.com/",
+      "mainEntity": {
+        "@type": "SoftwareApplication",
+        "name": "Trade Calculator",
+        "applicationCategory": "GameApplication"
+      },
+      "breadcrumb": {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://bloxfruitvaluescalculator.com/"
+          }
+        ]
+      }
+    });
+    document.head.appendChild(script);
+    
+    return () => {
+      document.head.removeChild(script);
+    };
+  }, []);
+
   return (
-    <div className="bg-background text-foreground">
+    <main className="bg-background text-foreground" role="main">
       {/* Stock Ticker */}
       <StockTracker />
 
@@ -55,28 +89,28 @@ export default function Calculator() {
 
 
         {/* Main Calculator Section */}
-        <div className="mb-8">
-          <div className="text-center mb-6">
-            <h2 className="text-3xl font-bold mb-3">Blox Fruits Trade Calculator</h2>
+        <section className="mb-8" aria-labelledby="calculator-heading">
+          <header className="text-center mb-6">
+            <h1 id="calculator-heading" className="text-3xl font-bold mb-3">Blox Fruits Trade Calculator</h1>
             <p className="text-muted-foreground max-w-xl mx-auto">
               Drag and drop fruits to compare values, calculate fair trades, and see the exact difference instantly.
             </p>
-          </div>
+          </header>
           <TradeCalculator 
             ref={calculatorRef}
             isPermanent={isPermanent} 
             onModeChange={handleModeChange}
           />
-        </div>
+        </section>
 
         {/* Features Section */}
-        <div className="mt-12 max-w-4xl mx-auto">
-          <div className="text-center mb-8">
-            <h2 className="text-2xl font-bold mb-4">Features</h2>
+        <section className="mt-12 max-w-4xl mx-auto" aria-labelledby="features-heading">
+          <header className="text-center mb-8">
+            <h2 id="features-heading" className="text-2xl font-bold mb-4">Features</h2>
             <p className="text-muted-foreground max-w-2xl mx-auto">
               Professional Blox Fruits calculator with advanced features for accurate trading and value analysis.
             </p>
-          </div>
+          </header>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
             <div className="text-center p-4 bg-card rounded-lg border">
@@ -103,16 +137,16 @@ export default function Calculator() {
               <p className="text-xs text-muted-foreground">Toggle between regular and permanent fruit values</p>
             </div>
           </div>
-        </div>
+        </section>
 
         {/* How to Use Calculator Section */}
-        <div className="mt-16 max-w-4xl mx-auto">
-          <div className="text-center mb-8">
-            <h2 className="text-2xl font-bold mb-4">How to Use the Calculator</h2>
+        <section className="mt-16 max-w-4xl mx-auto" aria-labelledby="howto-heading">
+          <header className="text-center mb-8">
+            <h2 id="howto-heading" className="text-2xl font-bold mb-4">How to Use the Calculator</h2>
             <p className="text-muted-foreground max-w-2xl mx-auto">
               Simple 3-step process to calculate Blox Fruits values and make fair trades instantly.
             </p>
-          </div>
+          </header>
 
           <div className="grid md:grid-cols-3 gap-6">
             <div className="p-6 bg-card rounded-lg border">
@@ -139,16 +173,16 @@ export default function Calculator() {
               </p>
             </div>
           </div>
-        </div>
+        </section>
 
         {/* How We Calculate Values */}
-        <div className="mt-16 max-w-4xl mx-auto">
-          <div className="text-center mb-8">
-            <h2 className="text-2xl font-bold mb-4">How We Calculate Values (Methodology)</h2>
+        <section className="mt-16 max-w-4xl mx-auto" aria-labelledby="calculation-heading">
+          <header className="text-center mb-8">
+            <h2 id="calculation-heading" className="text-2xl font-bold mb-4">How We Calculate Values (Methodology)</h2>
             <p className="text-muted-foreground max-w-2xl mx-auto">
               Our transparent methodology ensures accurate, reliable fruit values based on real market data.
             </p>
-          </div>
+          </header>
 
           <div className="grid md:grid-cols-2 gap-8">
             <div className="space-y-4">
@@ -195,16 +229,16 @@ export default function Calculator() {
               </div>
             </div>
           </div>
-        </div>
+        </section>
 
         {/* Frequently Asked Questions */}
-        <div className="mt-16 max-w-4xl mx-auto">
-          <div className="text-center mb-8">
-            <h2 className="text-2xl font-bold mb-4">Frequently Asked Questions</h2>
+        <section className="mt-16 max-w-4xl mx-auto" aria-labelledby="faq-heading">
+          <header className="text-center mb-8">
+            <h2 id="faq-heading" className="text-2xl font-bold mb-4">Frequently Asked Questions</h2>
             <p className="text-muted-foreground max-w-2xl mx-auto">
               Quick answers to common questions about Blox Fruits values and trading.
             </p>
-          </div>
+          </header>
 
           <div className="space-y-4">
             <div className="p-4 bg-card rounded-lg border">
@@ -249,8 +283,8 @@ export default function Calculator() {
               </p>
             </div>
           </div>
-        </div>
+        </section>
       </div>
-    </div>
+    </main>
   );
 }

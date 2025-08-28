@@ -1,0 +1,49 @@
+# Robots.txt for Blox Fruits Values Calculator
+# https://bloxfruitvaluescalculator.com
+
+User-agent: *
+Allow: /
+
+# Allow all major search engines
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: Slurp
+Allow: /
+
+User-agent: DuckDuckBot
+Allow: /
+
+User-agent: Baiduspider
+Allow: /
+
+User-agent: YandexBot
+Allow: /
+
+# Disallow any admin or private areas (none currently)
+# Disallow: /admin/
+# Disallow: /private/
+
+# Allow important files for SEO
+Allow: /sitemap.xml
+Allow: /robots.txt
+Allow: *.css
+Allow: *.js
+Allow: *.png
+Allow: *.jpg
+Allow: *.jpeg
+Allow: *.gif
+Allow: *.svg
+Allow: *.webp
+
+# Crawl delay for responsible crawling
+Crawl-delay: 1
+
+# Sitemap location
+Sitemap: https://bloxfruitvaluescalculator.com/sitemap.xml
+
+# Contact for website issues
+# Webmaster: admin@bloxfruitvaluescalculator.com
