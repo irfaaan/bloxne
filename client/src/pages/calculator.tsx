@@ -62,25 +62,6 @@ export default function Calculator() {
           </p>
         </div>
 
-        {/* Quick Stats */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
-          <div className="bg-card p-4 rounded-lg border border-border text-center">
-            <div className="text-2xl font-bold text-primary">35+</div>
-            <div className="text-sm text-muted-foreground">Total Fruits</div>
-          </div>
-          <div className="bg-card p-4 rounded-lg border border-border text-center">
-            <div className="text-2xl font-bold text-accent">4</div>
-            <div className="text-sm text-muted-foreground">Categories</div>
-          </div>
-          <div className="bg-card p-4 rounded-lg border border-border text-center">
-            <div className="text-2xl font-bold text-green-500">Live</div>
-            <div className="text-sm text-muted-foreground">Market Data</div>
-          </div>
-          <div className="bg-card p-4 rounded-lg border border-border text-center">
-            <div className="text-2xl font-bold text-blue-500">24/7</div>
-            <div className="text-sm text-muted-foreground">Updates</div>
-          </div>
-        </div>
 
         {/* Main Calculator Section */}
         <div className="mb-8">
