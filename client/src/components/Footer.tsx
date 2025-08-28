@@ -73,9 +73,9 @@ export default function Footer() {
                   Trading Guide
                 </span>
               </Link>
-              <Link href="/updates">
-                <span className="text-muted-foreground hover:text-foreground cursor-pointer block" data-testid="footer-updates">
-                  Updates
+              <Link href="/about-us">
+                <span className="text-muted-foreground hover:text-foreground cursor-pointer block" data-testid="footer-about">
+                  About Us
                 </span>
               </Link>
             </div>
@@ -108,7 +108,7 @@ export default function Footer() {
         <div className="border-t border-border mt-8 pt-8">
           <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
             <div className="text-sm text-muted-foreground">
-              © {new Date().getFullYear()} BloxCalc Pro. All rights reserved.
+              © {new Date().getFullYear()} <Link href="/"><span className="hover:text-foreground cursor-pointer">bloxfruitvaluescalculator.com</span></Link>. All rights reserved.
             </div>
             <div className="text-sm text-muted-foreground">
               Not affiliated with Blox Fruits or Roblox Corporation.

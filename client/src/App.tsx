@@ -16,6 +16,7 @@ import Contact from "@/pages/contact";
 import FAQ from "@/pages/faq";
 import TradingGuide from "@/pages/trading-guide";
 import Updates from "@/pages/updates";
+import AboutUs from "@/pages/about-us";
 import Stocks from "@/pages/stocks";
 import FruitsSEO from "@/pages/fruits-seo";
 import MarketTrends from "@/pages/market-trends";
@@ -40,6 +41,7 @@ function Router() {
           <Route path="/faq" component={FAQ} />
           <Route path="/trading-guide" component={TradingGuide} />
           <Route path="/updates" component={Updates} />
+          <Route path="/about-us" component={AboutUs} />
           <Route path="/stocks" component={Stocks} />
           <Route path="/fruits/:slug" component={FruitsSEO} />
           <Route path="/market-trends" component={MarketTrends} />
