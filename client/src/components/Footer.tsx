@@ -63,9 +63,21 @@ export default function Footer() {
                   Contact Us
                 </span>
               </Link>
-              <span className="text-muted-foreground block">FAQ</span>
-              <span className="text-muted-foreground block">Trading Guide</span>
-              <span className="text-muted-foreground block">Updates</span>
+              <Link href="/faq">
+                <span className="text-muted-foreground hover:text-foreground cursor-pointer block" data-testid="footer-faq">
+                  FAQ
+                </span>
+              </Link>
+              <Link href="/trading-guide">
+                <span className="text-muted-foreground hover:text-foreground cursor-pointer block" data-testid="footer-trading-guide">
+                  Trading Guide
+                </span>
+              </Link>
+              <Link href="/updates">
+                <span className="text-muted-foreground hover:text-foreground cursor-pointer block" data-testid="footer-updates">
+                  Updates
+                </span>
+              </Link>
             </div>
           </div>
 

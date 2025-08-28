@@ -13,6 +13,9 @@ import PrivacyPolicy from "@/pages/privacy-policy";
 import TermsOfService from "@/pages/terms-of-service";
 import Disclaimer from "@/pages/disclaimer";
 import Contact from "@/pages/contact";
+import FAQ from "@/pages/faq";
+import TradingGuide from "@/pages/trading-guide";
+import Updates from "@/pages/updates";
 import NotFound from "@/pages/not-found";
 
 function Router() {
@@ -29,6 +32,9 @@ function Router() {
           <Route path="/terms-of-service" component={TermsOfService} />
           <Route path="/disclaimer" component={Disclaimer} />
           <Route path="/contact" component={Contact} />
+          <Route path="/faq" component={FAQ} />
+          <Route path="/trading-guide" component={TradingGuide} />
+          <Route path="/updates" component={Updates} />
           <Route component={NotFound} />
         </Switch>
         <Footer />
