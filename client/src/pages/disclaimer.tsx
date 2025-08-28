@@ -10,10 +10,10 @@ export default function Disclaimer() {
         </p>
       </div>
 
-      <div className="space-y-8 prose prose-gray dark:prose-invert max-w-none">
+      <div className="space-y-8 max-w-none">
         <section>
-          <h2 className="text-2xl font-semibold mb-4">General Information</h2>
-          <p>
+          <h2 className="text-2xl font-semibold mb-4 text-foreground">General Information</h2>
+          <p className="text-foreground">
             The information on BloxCalc Pro is provided for general informational purposes only. 
             All information on the site is provided in good faith, however we make no 
             representation or warranty of any kind regarding the accuracy, adequacy, validity, 
@@ -22,13 +22,13 @@ export default function Disclaimer() {
         </section>
 
         <section>
-          <h2 className="text-2xl font-semibold mb-4">Trading Values</h2>
-          <p>
+          <h2 className="text-2xl font-semibold mb-4 text-foreground">Trading Values</h2>
+          <p className="text-foreground">
             All fruit values, trading ratios, and market data provided on BloxCalc Pro are 
             estimates and may not reflect actual in-game trading values. The Blox Fruits 
             market is dynamic and values can change frequently.
           </p>
-          <ul className="list-disc pl-6 space-y-2">
+          <ul className="list-disc pl-6 space-y-2 text-foreground">
             <li>Values are community-driven estimates</li>
             <li>Market conditions can change rapidly</li>
             <li>Always verify trades independently</li>
@@ -37,8 +37,8 @@ export default function Disclaimer() {
         </section>
 
         <section>
-          <h2 className="text-2xl font-semibold mb-4">Game Affiliation</h2>
-          <p>
+          <h2 className="text-2xl font-semibold mb-4 text-foreground">Game Affiliation</h2>
+          <p className="text-foreground">
             BloxCalc Pro is not affiliated with, endorsed by, or officially connected to 
             the creators of Blox Fruits or Roblox Corporation. This is an independent 
             fan-made tool created to help the community.
@@ -46,8 +46,8 @@ export default function Disclaimer() {
         </section>
 
         <section>
-          <h2 className="text-2xl font-semibold mb-4">External Links</h2>
-          <p>
+          <h2 className="text-2xl font-semibold mb-4 text-foreground">External Links</h2>
+          <p className="text-foreground">
             Our website may contain links to external sites that are not provided or 
             maintained by us. We do not guarantee the accuracy, relevance, timeliness, 
             or completeness of information on any external website.
@@ -55,16 +55,16 @@ export default function Disclaimer() {
         </section>
 
         <section>
-          <h2 className="text-2xl font-semibold mb-4">No Professional Advice</h2>
-          <p>
+          <h2 className="text-2xl font-semibold mb-4 text-foreground">No Professional Advice</h2>
+          <p className="text-foreground">
             The information on this website is not intended as professional advice. 
             This is a gaming tool for entertainment purposes only.
           </p>
         </section>
 
         <section>
-          <h2 className="text-2xl font-semibold mb-4">Updates and Changes</h2>
-          <p>
+          <h2 className="text-2xl font-semibold mb-4 text-foreground">Updates and Changes</h2>
+          <p className="text-foreground">
             We reserve the right to update, change, or replace any part of this disclaimer 
             at any time without prior notice. It is your responsibility to check this 
             disclaimer periodically for changes.
@@ -72,8 +72,8 @@ export default function Disclaimer() {
         </section>
 
         <section>
-          <h2 className="text-2xl font-semibold mb-4">Contact Information</h2>
-          <p>
+          <h2 className="text-2xl font-semibold mb-4 text-foreground">Contact Information</h2>
+          <p className="text-foreground">
             If you have any questions or concerns about this disclaimer, please contact us 
             through our contact page.
           </p>

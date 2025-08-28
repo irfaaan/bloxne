@@ -10,14 +10,14 @@ export default function PrivacyPolicy() {
         </p>
       </div>
 
-      <div className="space-y-8 prose prose-gray dark:prose-invert max-w-none">
+      <div className="space-y-8 max-w-none">
         <section>
-          <h2 className="text-2xl font-semibold mb-4">Information We Collect</h2>
-          <p>
+          <h2 className="text-2xl font-semibold mb-4 text-foreground">Information We Collect</h2>
+          <p className="text-foreground">
             BloxCalc Pro is committed to protecting your privacy. We collect minimal information necessary 
             to provide our trading calculator and fruit database services.
           </p>
-          <ul className="list-disc pl-6 space-y-2">
+          <ul className="list-disc pl-6 space-y-2 text-foreground">
             <li>Usage data and analytics to improve our service</li>
             <li>Device information for optimization purposes</li>
             <li>Cookies for website functionality</li>
@@ -25,11 +25,11 @@ export default function PrivacyPolicy() {
         </section>
 
         <section>
-          <h2 className="text-2xl font-semibold mb-4">How We Use Your Information</h2>
-          <p>
+          <h2 className="text-2xl font-semibold mb-4 text-foreground">How We Use Your Information</h2>
+          <p className="text-foreground">
             The information we collect is used to:
           </p>
-          <ul className="list-disc pl-6 space-y-2">
+          <ul className="list-disc pl-6 space-y-2 text-foreground">
             <li>Provide and maintain our trading calculator service</li>
             <li>Analyze usage patterns to improve user experience</li>
             <li>Ensure website security and prevent fraud</li>
@@ -38,8 +38,8 @@ export default function PrivacyPolicy() {
         </section>
 
         <section>
-          <h2 className="text-2xl font-semibold mb-4">Third-Party Services</h2>
-          <p>
+          <h2 className="text-2xl font-semibold mb-4 text-foreground">Third-Party Services</h2>
+          <p className="text-foreground">
             Our website uses Google AdSense to display advertisements. Google may use cookies 
             and other technologies to serve ads based on your browsing behavior. You can 
             control ad personalization through Google's Ad Settings.
@@ -47,24 +47,24 @@ export default function PrivacyPolicy() {
         </section>
 
         <section>
-          <h2 className="text-2xl font-semibold mb-4">Data Security</h2>
-          <p>
+          <h2 className="text-2xl font-semibold mb-4 text-foreground">Data Security</h2>
+          <p className="text-foreground">
             We implement reasonable security measures to protect your information. However, 
             no method of transmission over the Internet is 100% secure.
           </p>
         </section>
 
         <section>
-          <h2 className="text-2xl font-semibold mb-4">Changes to This Policy</h2>
-          <p>
+          <h2 className="text-2xl font-semibold mb-4 text-foreground">Changes to This Policy</h2>
+          <p className="text-foreground">
             We may update our Privacy Policy from time to time. Changes will be posted on 
             this page with an updated revision date.
           </p>
         </section>
 
         <section>
-          <h2 className="text-2xl font-semibold mb-4">Contact Us</h2>
-          <p>
+          <h2 className="text-2xl font-semibold mb-4 text-foreground">Contact Us</h2>
+          <p className="text-foreground">
             If you have any questions about this Privacy Policy, please contact us through 
             our contact page.
           </p>
