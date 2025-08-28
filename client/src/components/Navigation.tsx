@@ -1,4 +1,5 @@
 import { Link, useLocation } from "wouter";
+import logoUrl from "../assets/logo.png";
 
 export default function Navigation() {
   const [location] = useLocation();
@@ -9,9 +10,17 @@ export default function Navigation() {
         <div className="flex h-16 items-center justify-between">
           <div className="flex items-center">
             <Link href="/">
-              <h1 className="text-2xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent cursor-pointer">
-                BloxCalc Pro
-              </h1>
+              <div className="flex items-center space-x-3 cursor-pointer">
+                <img 
+                  src={logoUrl} 
+                  alt="BloxCalc Pro - Blox Fruits Trading Calculator" 
+                  className="h-10 w-10 object-contain"
+                  data-testid="logo-image"
+                />
+                <span className="text-xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent hidden sm:inline">
+                  BloxCalc Pro
+                </span>
+              </div>
             </Link>
           </div>
 
