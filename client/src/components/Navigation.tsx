@@ -1,5 +1,5 @@
 import { Link, useLocation } from "wouter";
-import logoUrl from "../assets/logo.png";
+import logoUrl from "../assets/logo.svg";
 
 export default function Navigation() {
   const [location] = useLocation();
