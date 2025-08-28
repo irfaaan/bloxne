@@ -7,13 +7,13 @@ export default function Navigation() {
   return (
     <nav className="border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 sticky top-0 z-50">
       <div className="container mx-auto px-4">
-        <div className="flex h-16 items-center justify-between">
+        <div className="flex h-20 items-center justify-between">
           <div className="flex items-center">
             <Link href="/">
               <img 
                 src={logoUrl} 
                 alt="Blox Fruits Values Calculator" 
-                className="h-12 w-auto object-contain cursor-pointer"
+                className="h-16 w-auto object-contain cursor-pointer"
                 data-testid="logo-image"
               />
             </Link>
