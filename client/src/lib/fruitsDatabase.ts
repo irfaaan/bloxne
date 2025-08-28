@@ -13,10 +13,21 @@ export interface FruitData {
   inStock: boolean;
 }
 
+export interface GamepassData {
+  name: string;
+  value: number;
+  rarity: "Mythical" | "Legendary" | "Rare" | "Uncommon" | "Common";
+  demand: number;
+  trend: "Overpaid" | "Dropping" | "Rising" | "Stable" | "Soon" | "Underpaid";
+  type: "Gamepass";
+  imageUrl: string;
+  description: string;
+}
+
 export const fruitsDatabase: Record<string, FruitData> = {
   "West Dragon": {
     name: "West Dragon",
-    value: 1000000000,
+    value: 1200000000,
     permanentValue: 2300000000,
     price: 15000000,
     rarity: "Mythical",
@@ -28,7 +39,7 @@ export const fruitsDatabase: Record<string, FruitData> = {
   },
   "East Dragon": {
     name: "East Dragon",
-    value: 860000000,
+    value: 900000000,
     permanentValue: 2300000000,
     price: 15000000,
     rarity: "Mythical",
@@ -52,7 +63,7 @@ export const fruitsDatabase: Record<string, FruitData> = {
   },
   "Yeti": {
     name: "Yeti",
-    value: 140000000,
+    value: 150000000,
     permanentValue: 280000000,
     price: 5000000,
     rarity: "Mythical",
@@ -64,7 +75,7 @@ export const fruitsDatabase: Record<string, FruitData> = {
   },
   "Gas": {
     name: "Gas",
-    value: 80000000,
+    value: 75000000,
     permanentValue: 1100000000,
     price: 3200000,
     rarity: "Mythical",
@@ -88,7 +99,7 @@ export const fruitsDatabase: Record<string, FruitData> = {
   },
   "Dough": {
     name: "Dough",
-    value: 30000000,
+    value: 25000000,
     permanentValue: 1000000000,
     price: 2800000,
     rarity: "Mythical",
@@ -112,12 +123,12 @@ export const fruitsDatabase: Record<string, FruitData> = {
   },
   "Gravity": {
     name: "Gravity",
-    value: 100000000,
+    value: 25000000,
     permanentValue: 1200000000,
     price: 2500000,
     rarity: "Mythical",
-    demand: 7,
-    trend: "Rising",
+    demand: 5,
+    trend: "Stable",
     type: "Natural",
     imageUrl: "https://i.postimg.cc/D02Lw6vJ/Gravity.png",
     inStock: false
@@ -136,7 +147,7 @@ export const fruitsDatabase: Record<string, FruitData> = {
   },
   "Spirit": {
     name: "Spirit",
-    value: 10000000,
+    value: 11000000,
     permanentValue: 1100000000,
     price: 3400000,
     rarity: "Mythical",
@@ -160,7 +171,7 @@ export const fruitsDatabase: Record<string, FruitData> = {
   },
   "Venom": {
     name: "Venom",
-    value: 8000000,
+    value: 11000000,
     permanentValue: 1000000000,
     price: 3000000,
     rarity: "Mythical",
@@ -182,33 +193,45 @@ export const fruitsDatabase: Record<string, FruitData> = {
     imageUrl: "https://i.postimg.cc/kGpGPvBd/Shadow.png",
     inStock: false
   },
+  "Dragon Token": {
+    name: "Dragon Token",
+    value: 800000000,
+    permanentValue: 1600000000,
+    price: 0,
+    rarity: "Mythical",
+    demand: 10,
+    trend: "Overpaid",
+    type: "Natural",
+    imageUrl: "https://i.postimg.cc/LsQkJr8w/Dragon-Token.png",
+    inStock: false
+  },
   "Lightning": {
     name: "Lightning",
-    value: 7000000,
+    value: 80000000,
     permanentValue: 870000000,
     price: 2100000,
     rarity: "Legendary",
-    demand: 6,
-    trend: "Dropping",
+    demand: 8,
+    trend: "Rising",
     type: "Logia",
     imageUrl: "https://i.postimg.cc/MHTHLFZD/Rumble.png",
     inStock: false
   },
   "Pain": {
     name: "Pain",
-    value: 2000000,
+    value: 22000000,
     permanentValue: 915000000,
     price: 2300000,
     rarity: "Legendary",
-    demand: 5,
-    trend: "Dropping",
+    demand: 7,
+    trend: "Stable",
     type: "Natural",
     imageUrl: "https://i.postimg.cc/mk21srj7/Pain.png",
     inStock: false
   },
   "Portal": {
     name: "Portal",
-    value: 11000000,
+    value: 7500000,
     permanentValue: 840000000,
     price: 1900000,
     rarity: "Legendary",
@@ -220,7 +243,7 @@ export const fruitsDatabase: Record<string, FruitData> = {
   },
   "Buddha": {
     name: "Buddha",
-    value: 11000000,
+    value: 6000000,
     permanentValue: 685000000,
     price: 1200000,
     rarity: "Legendary",
@@ -232,7 +255,7 @@ export const fruitsDatabase: Record<string, FruitData> = {
   },
   "Blizzard": {
     name: "Blizzard",
-    value: 5000000,
+    value: 4000000,
     permanentValue: 935000000,
     price: 2400000,
     rarity: "Legendary",
@@ -244,19 +267,19 @@ export const fruitsDatabase: Record<string, FruitData> = {
   },
   "Creation": {
     name: "Creation",
-    value: 15000000,
+    value: 4500000,
     permanentValue: 1000000000,
     price: 1400000,
-    rarity: "Mythical",
-    demand: 7,
-    trend: "Rising",
+    rarity: "Legendary",
+    demand: 4,
+    trend: "Stable",
     type: "Natural",
     imageUrl: "https://i.postimg.cc/HLctq6nT/Creation.png",
     inStock: false
   },
   "Phoenix": {
     name: "Phoenix",
-    value: 2800000,
+    value: 2300000,
     permanentValue: 830000000,
     price: 1800000,
     rarity: "Legendary",
@@ -268,7 +291,7 @@ export const fruitsDatabase: Record<string, FruitData> = {
   },
   "Sound": {
     name: "Sound",
-    value: 2500000,
+    value: 3000000,
     permanentValue: 790000000,
     price: 1700000,
     rarity: "Legendary",
@@ -280,7 +303,7 @@ export const fruitsDatabase: Record<string, FruitData> = {
   },
   "Spider": {
     name: "Spider",
-    value: 1500000,
+    value: 1300000,
     permanentValue: 750000000,
     price: 1500000,
     rarity: "Legendary",
@@ -292,7 +315,7 @@ export const fruitsDatabase: Record<string, FruitData> = {
   },
   "Love": {
     name: "Love",
-    value: 1500000,
+    value: 1200000,
     permanentValue: 705000000,
     price: 1300000,
     rarity: "Legendary",
@@ -328,7 +351,7 @@ export const fruitsDatabase: Record<string, FruitData> = {
   },
   "Light": {
     name: "Light",
-    value: 800000,
+    value: 850000,
     permanentValue: 455000000,
     price: 650000,
     rarity: "Rare",
@@ -340,7 +363,7 @@ export const fruitsDatabase: Record<string, FruitData> = {
   },
   "Ghost": {
     name: "Ghost",
-    value: 800000,
+    value: 850000,
     permanentValue: 530000000,
     price: 940000,
     rarity: "Rare",
@@ -364,11 +387,11 @@ export const fruitsDatabase: Record<string, FruitData> = {
   },
   "Diamond": {
     name: "Diamond",
-    value: 1500000,
+    value: 800000,
     permanentValue: 415000000,
     price: 600000,
-    rarity: "Rare",
-    demand: 3,
+    rarity: "Uncommon",
+    demand: 2,
     trend: "Stable",
     type: "Natural",
     imageUrl: "https://i.postimg.cc/3N7CD7Bw/Diamond.png",
@@ -376,19 +399,19 @@ export const fruitsDatabase: Record<string, FruitData> = {
   },
   "Eagle": {
     name: "Eagle",
-    value: 5000000,
+    value: 750000,
     permanentValue: 800000000,
     price: 550000,
-    rarity: "Legendary",
-    demand: 6,
-    trend: "Rising",
+    rarity: "Uncommon",
+    demand: 3,
+    trend: "Stable",
     type: "Beast",
     imageUrl: "https://i.postimg.cc/sxcPY864/Eagle.png",
     inStock: false
   },
   "Ice": {
     name: "Ice",
-    value: 550000,
+    value: 600000,
     permanentValue: 310000000,
     price: 350000,
     rarity: "Uncommon",
@@ -412,7 +435,7 @@ export const fruitsDatabase: Record<string, FruitData> = {
   },
   "Dark": {
     name: "Dark",
-    value: 400000,
+    value: 450000,
     permanentValue: 380000000,
     price: 500000,
     rarity: "Uncommon",
@@ -517,6 +540,99 @@ export const fruitsDatabase: Record<string, FruitData> = {
     type: "Natural",
     imageUrl: "https://i.postimg.cc/cHdrRJVP/Rocket.png",
     inStock: true
+  }
+};
+
+export const gamepassDatabase: Record<string, GamepassData> = {
+  "Fruit Notifier": {
+    name: "Fruit Notifier",
+    value: 700000000,
+    rarity: "Mythical",
+    demand: 10,
+    trend: "Overpaid",
+    type: "Gamepass",
+    imageUrl: "https://i.postimg.cc/D0QZK4bN/Fruit-Notifier.png",
+    description: "Alerts you when rare fruits spawn"
+  },
+  "Dark Blade": {
+    name: "Dark Blade",
+    value: 315000000,
+    rarity: "Mythical",
+    demand: 9,
+    trend: "Stable",
+    type: "Gamepass",
+    imageUrl: "https://i.postimg.cc/Zn3vCyPg/Dark-Blade.png",
+    description: "Powerful legendary sword gamepass"
+  },
+  "Mythical Scroll": {
+    name: "Mythical Scroll",
+    value: 300000000,
+    rarity: "Mythical",
+    demand: 8,
+    trend: "Stable",
+    type: "Gamepass",
+    imageUrl: "https://i.postimg.cc/3NCjQ8yM/Mythical-Scroll.png",
+    description: "Guarantees mythical fruit from gacha"
+  },
+  "Legendary Scroll": {
+    name: "Legendary Scroll",
+    value: 180000000,
+    rarity: "Legendary",
+    demand: 7,
+    trend: "Stable",
+    type: "Gamepass",
+    imageUrl: "https://i.postimg.cc/LXzt3nTg/Legendary-Scroll.png",
+    description: "Guarantees legendary fruit from gacha"
+  },
+  "+1 Fruit Storage": {
+    name: "+1 Fruit Storage",
+    value: 175000000,
+    rarity: "Legendary",
+    demand: 9,
+    trend: "Rising",
+    type: "Gamepass",
+    imageUrl: "https://i.postimg.cc/Y0Tw6w8r/Fruit-Storage.png",
+    description: "Adds one extra fruit storage slot"
+  },
+  "2x Boss Drops": {
+    name: "2x Boss Drops",
+    value: 80000000,
+    rarity: "Rare",
+    demand: 8,
+    trend: "Stable",
+    type: "Gamepass",
+    imageUrl: "https://i.postimg.cc/Tw8LmYRz/2x-Boss-Drops.png",
+    description: "Doubles boss drop chances"
+  },
+  "2x Mastery": {
+    name: "2x Mastery",
+    value: 75000000,
+    rarity: "Rare",
+    demand: 7,
+    trend: "Stable",
+    type: "Gamepass",
+    imageUrl: "https://i.postimg.cc/VLPJcGTg/2x-Mastery.png",
+    description: "Doubles mastery gain from combat"
+  },
+  "Fast Boats": {
+    name: "Fast Boats",
+    value: 50000000,
+    rarity: "Rare",
+    demand: 6,
+    trend: "Stable",
+    type: "Gamepass",
+    imageUrl: "https://i.postimg.cc/9FvCyDrQ/Fast-Boats.png",
+    description: "Increases boat movement speed"
+  },
+  "2x Money": {
+    name: "2x Money",
+    value: 50000000,
+    rarity: "Rare",
+    demand: 7,
+    trend: "Stable",
+    type: "Gamepass",
+    imageUrl: "https://i.postimg.cc/G2PDYztp/2x-Money.png",
+    description: "Doubles beli earnings from all sources"
   }
 };
 

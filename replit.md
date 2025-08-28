@@ -2,7 +2,16 @@
 
 ## Overview
 
-BloxCalc Pro is a web-based trading calculator designed for the Blox Fruits game ecosystem. The application helps players calculate trade values, compare fruit values, and make informed trading decisions. It features a comprehensive fruit database with real-time value tracking, market trends, and rarity classifications.
+BloxCalc Pro is a web-based trading calculator designed for the Blox Fruits game ecosystem. The application helps players calculate trade values, compare fruit values, and make informed trading decisions. It features a comprehensive fruit database with real-time value tracking, market trends, and rarity classifications, plus gamepass values.
+
+## Recent Changes
+
+### Database Updates (January 2025)
+- **Data Sources**: Updated with latest values from DarkKitsune.com and BloxFruitsValues.com
+- **New Items Added**: Dragon Token (800M value) as new mythical fruit
+- **Gamepass Database**: Added comprehensive gamepass trading values including Fruit Notifier (700M), Dark Blade (315M), and more
+- **Major Value Changes**: Lightning increased from 7M to 80M, Pain from 2M to 22M, various rarity adjustments
+- **No Duplicates**: Ensured all existing fruits maintained consistency while adding new authentic market data
 
 ## User Preferences
 
