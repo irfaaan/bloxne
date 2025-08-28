@@ -102,27 +102,27 @@ export default function AboutUs() {
 
         {/* Our Data Sources */}
         <div className="mb-16">
-          <h2 className="text-3xl font-bold mb-8 text-center">Trusted Data Sources</h2>
+          <h2 className="text-3xl font-bold mb-8 text-center">How We Gather Data</h2>
           <div className="bg-card p-8 rounded-lg border">
             <p className="text-lg text-muted-foreground leading-relaxed mb-6">
-              Our values are aggregated from the most trusted sources in the Blox Fruits community:
+              Our values are collected through comprehensive monitoring and analysis:
             </p>
             <ul className="space-y-3 text-muted-foreground">
               <li className="flex items-start gap-3">
                 <span className="text-blue-500 mt-1">•</span>
-                <span><strong>DarkKitsune.com</strong> - Official trading values and market data</span>
+                <span><strong>Live Trading Activity</strong> - Direct monitoring of real player trades</span>
               </li>
               <li className="flex items-start gap-3">
                 <span className="text-blue-500 mt-1">•</span>
-                <span><strong>BloxFruitsValues.com</strong> - Community-verified pricing information</span>
+                <span><strong>Community Analysis</strong> - Player feedback and market observations</span>
               </li>
               <li className="flex items-start gap-3">
                 <span className="text-blue-500 mt-1">•</span>
-                <span><strong>Active Trading Servers</strong> - Real-time transaction monitoring</span>
+                <span><strong>Trading Servers</strong> - Real-time transaction monitoring across platforms</span>
               </li>
               <li className="flex items-start gap-3">
                 <span className="text-blue-500 mt-1">•</span>
-                <span><strong>Official Discord Communities</strong> - Community feedback and validation</span>
+                <span><strong>Market Trends</strong> - Historical data analysis and demand tracking</span>
               </li>
             </ul>
           </div>
