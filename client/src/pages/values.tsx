@@ -10,7 +10,7 @@ export default function Values() {
 
   // SEO optimization for Values page (Fruits Listing)
   useSEO({
-    title: "Blox Fruits Values List – Compare Individual Fruit Worth",
+    title: "Blox fruits values list - Compare Individual Fruit Worth",
     description: "Explore our Blox Fruits Values List to compare individual fruit worth, demand levels, and stay updated—for smarter trades every time.",
     keywords: "fruits trade values list, fruit value checker, individual fruit values, blox fruits values, fruit worth comparison, trading list",
     canonical: window.location.href
