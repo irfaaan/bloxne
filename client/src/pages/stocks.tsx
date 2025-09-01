@@ -25,11 +25,18 @@ interface StockSection {
 }
 
 export default function Stocks() {
-  // SEO optimization for Stocks page
+  // Get current date for dynamic SEO title
+  const getCurrentDate = () => {
+    const now = new Date();
+    const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+    return `${months[now.getMonth()]} ${now.getDate()}, ${now.getFullYear()}`;
+  };
+
+  // SEO optimization for Stocks page with dynamic date
   useSEO({
-    title: "Blox Fruits Stock Tracker | Current Shop Inventory & Prices",
-    description: "Track current Blox Fruits stock availability with live prices, discounts, and refresh timers. Monitor Normal Stock and Mirage Island inventory for the best deals.",
-    keywords: "blox fruits stock, fruit shop tracker, current inventory, stock prices, discounts, refresh timer, normal stock, mirage island stock",
+    title: `Live Blox Fruits Stock – Normal & Mirage ${getCurrentDate()}`,
+    description: `Check live Blox Fruits stock for ${getCurrentDate()}. Monitor Normal Stock and Mirage Island inventory with real-time prices, discounts, and refresh timers for the best deals.`,
+    keywords: "live blox fruits stock, fruit shop tracker, current inventory, stock prices, discounts, refresh timer, normal stock, mirage island stock, today stock",
     canonical: window.location.href
   });
 
