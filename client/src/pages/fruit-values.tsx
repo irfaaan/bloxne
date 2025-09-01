@@ -108,7 +108,7 @@ export default function FruitValues() {
   const [selectedRarity, setSelectedRarity] = useState<string>("all");
   const [viewMode, setViewMode] = useState<"cards" | "table">("cards");
 
-  // SEO optimization for Fruit Values page
+  // SEO optimization for Fruit Values Database page
   useSEO({
     title: "Blox Fruits Values Database | All Fruits Trading Values & Market Analysis",
     description: "Complete Blox Fruits values catalog with search, filters, and detailed market analysis. View all fruits by rarity, type, demand ratings, and trends. Cards and table view with real-time trading data.",

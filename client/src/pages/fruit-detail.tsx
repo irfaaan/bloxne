@@ -55,11 +55,11 @@ export default function FruitDetail() {
 
   const TrendIcon = trendIcons[fruit.trend];
 
-  // Dynamic SEO optimization for specific fruit
+  // Dynamic SEO optimization for individual fruit pages using recommended template
   useSEO({
-    title: `${fruit.name} Value - ${formatValue(fruit.value)} | Blox Fruits Trading`,
-    description: `${fruit.name} current value is ${formatValue(fruit.value)} in Blox Fruits. Check demand (${fruit.demand}/10), trend (${fruit.trend}), rarity (${fruit.rarity}), and complete trading info for ${fruit.name}.`,
-    keywords: `${fruit.name.toLowerCase()} value, ${fruit.name.toLowerCase()} blox fruits, ${fruit.rarity.toLowerCase()} fruit value, ${fruit.type.toLowerCase()} fruit, ${fruit.name.toLowerCase()} trading, blox fruits ${fruit.name.toLowerCase()}`,
+    title: `${fruit.name} Fruit Value – Blox Fruits Price & Worth`,
+    description: `Check ${fruit.name} Fruit value, demand, and price in Blox Fruits. Get fair trade worth and latest updates to make smarter trades.`,
+    keywords: `${fruit.name.toLowerCase()} value, ${fruit.name.toLowerCase()} fruit value, blox fruits ${fruit.name.toLowerCase()}, ${fruit.name.toLowerCase()} price, ${fruit.name.toLowerCase()} worth, ${fruit.name.toLowerCase()} trading`,
     canonical: window.location.href
   });
 

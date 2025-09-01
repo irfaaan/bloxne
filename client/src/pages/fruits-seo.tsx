@@ -3,6 +3,7 @@ import { fruitsDatabase, formatValue } from "@/lib/fruitsDatabase";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { ArrowLeft, TrendingUp, TrendingDown, Minus, Clock, Users, DollarSign, Star } from "lucide-react";
+import { useSEO } from "@/hooks/useSEO";
 
 export default function FruitsSEO() {
   const params = useParams();
@@ -62,9 +63,17 @@ export default function FruitsSEO() {
 
   const TrendIcon = trendIcons[fruit.trend];
 
-  // SEO-optimized content
-  const seoTitle = `${fruit.name} Value - ${formatValue(fruit.value)} Blox Fruits`;
-  const seoDescription = `${fruit.name} current value is ${formatValue(fruit.value)} in Blox Fruits. Check demand (${fruit.demand}/10), trend (${fruit.trend}), and trading info for ${fruit.name}.`;
+  // Dynamic SEO optimization using recommended template for SEO fruit pages
+  useSEO({
+    title: `${fruit.name} Fruit Value – Blox Fruits Fair Trade Info`,
+    description: `See the ${fruit.name} Fruit value in Blox Fruits, its current demand, and how it compares in fair trades—updated regularly.`,
+    keywords: `${fruit.name.toLowerCase()} value, blox fruits ${fruit.name.toLowerCase()} value, ${fruit.name.toLowerCase()} fruit value, ${fruit.name.toLowerCase()} price, ${fruit.name.toLowerCase()} worth, ${fruit.name.toLowerCase()} trading`,
+    canonical: window.location.href
+  });
+
+  // SEO-optimized content for display
+  const seoTitle = `${fruit.name} Fruit Value – Blox Fruits Fair Trade Info`;
+  const seoDescription = `See the ${fruit.name} Fruit value in Blox Fruits, its current demand, and how it compares in fair trades—updated regularly.`;
 
   return (
     <div className="container mx-auto px-4 py-8">

@@ -8,11 +8,11 @@ import { useSEO } from "@/hooks/useSEO";
 export default function Values() {
   const [isPermanent, setIsPermanent] = useState(false);
 
-  // SEO optimization for Values page
+  // SEO optimization for Values page (Fruits Listing)
   useSEO({
-    title: "Complete Blox Fruits Values Database | Updated Daily Trading Prices",
-    description: "Browse all Blox Fruits with current market values, demand ratings, and trading trends. Complete database with regular and permanent values, filters by rarity and type. Updated daily with authentic trading data.",
-    keywords: "blox fruits values, complete fruit database, blox fruits trading prices, fruit values list, mythical fruits values, legendary fruits values, blox fruits market values",
+    title: "Blox Fruits Values List – Compare Individual Fruit Worth",
+    description: "Explore our Blox Fruits Values List to compare individual fruit worth, demand levels, and stay updated—for smarter trades every time.",
+    keywords: "fruits trade values list, fruit value checker, individual fruit values, blox fruits values, fruit worth comparison, trading list",
     canonical: window.location.href
   });
 
