@@ -1,4 +1,14 @@
+import { useSEO } from "@/hooks/useSEO";
+
 export default function TermsOfService() {
+  // SEO optimization for Terms of Service page
+  useSEO({
+    title: "Terms of Service | Blox Fruits Calculator Usage Guidelines",
+    description: "Read our terms of service for using the Blox Fruits Values Calculator. Understand your rights and responsibilities when using our trading tools and services.",
+    keywords: "terms of service, usage guidelines, blox fruits calculator terms, user agreement, service terms, legal terms",
+    canonical: window.location.href
+  });
+
   return (
     <div className="container mx-auto px-4 py-8 max-w-4xl">
       <div className="mb-8">

@@ -5,9 +5,18 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft, Crown, Star, Award } from "lucide-react";
 import { fruitsDatabase, formatValue } from "@/lib/fruitsDatabase";
+import { useSEO } from "@/hooks/useSEO";
 
 export default function TopValues() {
   const [isPermanent, setIsPermanent] = useState(false);
+
+  // SEO optimization for Top Values page
+  useSEO({
+    title: "Top 25 Most Valuable Blox Fruits | Highest Trading Values Ranked",
+    description: "Discover the most valuable Blox Fruits ranked by trading value. Top 25 highest-priced fruits with regular and permanent values, rarity analysis, and demand ratings.",
+    keywords: "most valuable blox fruits, highest fruit values, top 25 fruits, expensive fruits, valuable trading fruits, dragon value, leopard value, mythical fruits",
+    canonical: window.location.href
+  });
 
   // Sort fruits by value
   const sortedFruits = Object.entries(fruitsDatabase)

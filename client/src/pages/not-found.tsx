@@ -1,7 +1,16 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { AlertCircle } from "lucide-react";
+import { useSEO } from "@/hooks/useSEO";
 
 export default function NotFound() {
+  // SEO optimization for 404 page
+  useSEO({
+    title: "Page Not Found | Blox Fruits Calculator 404 Error",
+    description: "The page you're looking for doesn't exist. Return to the Blox Fruits Values Calculator homepage to continue trading and checking fruit values.",
+    keywords: "404 error, page not found, blox fruits calculator, missing page",
+    canonical: window.location.href
+  });
+
   return (
     <div className="min-h-screen w-full flex items-center justify-center bg-gray-50">
       <Card className="w-full max-w-md mx-4">

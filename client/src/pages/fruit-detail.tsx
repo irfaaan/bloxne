@@ -3,6 +3,7 @@ import { fruitsDatabase, formatValue } from "@/lib/fruitsDatabase";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { ArrowLeft, TrendingUp, TrendingDown, Minus, Clock, Users, DollarSign } from "lucide-react";
+import { useSEO } from "@/hooks/useSEO";
 
 export default function FruitDetail() {
   const params = useParams();
@@ -53,6 +54,14 @@ export default function FruitDetail() {
   };
 
   const TrendIcon = trendIcons[fruit.trend];
+
+  // Dynamic SEO optimization for specific fruit
+  useSEO({
+    title: `${fruit.name} Value - ${formatValue(fruit.value)} | Blox Fruits Trading`,
+    description: `${fruit.name} current value is ${formatValue(fruit.value)} in Blox Fruits. Check demand (${fruit.demand}/10), trend (${fruit.trend}), rarity (${fruit.rarity}), and complete trading info for ${fruit.name}.`,
+    keywords: `${fruit.name.toLowerCase()} value, ${fruit.name.toLowerCase()} blox fruits, ${fruit.rarity.toLowerCase()} fruit value, ${fruit.type.toLowerCase()} fruit, ${fruit.name.toLowerCase()} trading, blox fruits ${fruit.name.toLowerCase()}`,
+    canonical: window.location.href
+  });
 
   return (
     <div className="container mx-auto px-4 py-8">

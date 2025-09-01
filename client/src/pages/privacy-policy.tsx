@@ -1,4 +1,14 @@
+import { useSEO } from "@/hooks/useSEO";
+
 export default function PrivacyPolicy() {
+  // SEO optimization for Privacy Policy page
+  useSEO({
+    title: "Privacy Policy | Blox Fruits Calculator Data Protection",
+    description: "Read our privacy policy to understand how we collect, use, and protect your data when using the Blox Fruits Values Calculator. Your privacy is important to us.",
+    keywords: "privacy policy, data protection, blox fruits calculator privacy, cookies, user data, information collection",
+    canonical: window.location.href
+  });
+
   return (
     <div className="container mx-auto px-4 py-8 max-w-4xl">
       <div className="mb-8">

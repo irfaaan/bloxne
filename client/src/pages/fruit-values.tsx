@@ -3,6 +3,7 @@ import { Link } from "wouter";
 import { fruitsDatabase, formatValue, type FruitData } from "@/lib/fruitsDatabase";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { useSEO } from "@/hooks/useSEO";
 
 // Organize fruits by categories
 const categorizedFruits = {
@@ -106,6 +107,14 @@ export default function FruitValues() {
   const [selectedCategory, setSelectedCategory] = useState<string>("all");
   const [selectedRarity, setSelectedRarity] = useState<string>("all");
   const [viewMode, setViewMode] = useState<"cards" | "table">("cards");
+
+  // SEO optimization for Fruit Values page
+  useSEO({
+    title: "Blox Fruits Values Database | All Fruits Trading Values & Market Analysis",
+    description: "Complete Blox Fruits values catalog with search, filters, and detailed market analysis. View all fruits by rarity, type, demand ratings, and trends. Cards and table view with real-time trading data.",
+    keywords: "blox fruits database, fruit values search, blox fruits catalog, trading values, fruit market analysis, rarity filter, type filter, demand ratings",
+    canonical: window.location.href
+  });
 
   // Filter fruits based on search, category, and rarity
   const getFilteredFruits = (fruits: FruitData[]) => {

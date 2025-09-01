@@ -3,6 +3,7 @@ import { fruitsDatabase, formatValue, type FruitData } from "@/lib/fruitsDatabas
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useState } from "react";
+import { useSEO } from "@/hooks/useSEO";
 
 function FruitCard({ fruit }: { fruit: FruitData }) {
   const rarityColors = {
@@ -70,6 +71,14 @@ export default function CategoryPage() {
   const categoryFruits = Object.values(fruitsDatabase).filter(
     fruit => fruit.type.toLowerCase() === category?.toLowerCase()
   );
+
+  // Dynamic SEO optimization for category page
+  useSEO({
+    title: `${normalizedCategory} Fruits Values | Complete ${normalizedCategory} Trading List`,
+    description: `Complete list of all ${normalizedCategory} type Blox Fruits with current trading values, demand ratings, and market trends. ${categoryFruits.length} ${normalizedCategory.toLowerCase()} fruits with detailed analysis.`,
+    keywords: `${normalizedCategory.toLowerCase()} fruits, ${normalizedCategory.toLowerCase()} type blox fruits, ${normalizedCategory.toLowerCase()} values, ${normalizedCategory.toLowerCase()} trading list, blox fruits ${normalizedCategory.toLowerCase()}`,
+    canonical: window.location.href
+  });
 
   // Filter and sort fruits
   const filteredAndSortedFruits = categoryFruits

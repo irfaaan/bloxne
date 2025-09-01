@@ -1,4 +1,14 @@
+import { useSEO } from "@/hooks/useSEO";
+
 export default function Disclaimer() {
+  // SEO optimization for Disclaimer page
+  useSEO({
+    title: "Disclaimer | Blox Fruits Calculator Trading Information Notice",
+    description: "Important disclaimer about trading values and market data provided by Blox Fruits Calculator. Understand the limitations and accuracy of our trading information.",
+    keywords: "disclaimer, trading disclaimer, value accuracy, market data limitations, blox fruits disclaimer, trading notice",
+    canonical: window.location.href
+  });
+
   return (
     <div className="container mx-auto px-4 py-8 max-w-4xl">
       <div className="mb-8">

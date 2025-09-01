@@ -1,8 +1,17 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Alert, AlertDescription } from "@/components/ui/alert";
+import { useSEO } from "@/hooks/useSEO";
 
 export default function TradingGuide() {
+  // SEO optimization for Trading Guide page
+  useSEO({
+    title: "Complete Blox Fruits Trading Guide | Values, Strategies & Tips",
+    description: "Master Blox Fruits trading with our comprehensive guide. Learn about fruit values, rarity tiers, demand analysis, trading strategies, and how to avoid scams. Expert tips included.",
+    keywords: "blox fruits trading guide, fruit trading strategies, values guide, rarity tiers, demand analysis, trading tips, scam prevention, fruit market guide",
+    canonical: window.location.href
+  });
+
   return (
     <div className="container mx-auto px-4 py-8 max-w-4xl">
       <div className="mb-8">

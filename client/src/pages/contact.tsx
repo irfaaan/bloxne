@@ -2,8 +2,17 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
+import { useSEO } from "@/hooks/useSEO";
 
 export default function Contact() {
+  // SEO optimization for Contact page
+  useSEO({
+    title: "Contact Us | Blox Fruits Calculator Support & Feedback",
+    description: "Get in touch with our team for support, feedback, or suggestions about the Blox Fruits Values Calculator. We're here to help with all your trading questions.",
+    keywords: "contact blox fruits calculator, support, feedback, suggestions, trading questions, help, customer service",
+    canonical: window.location.href
+  });
+
   return (
     <div className="container mx-auto px-4 py-8 max-w-4xl">
       <div className="mb-8">

@@ -1,9 +1,17 @@
 import { Link } from "wouter";
 import { useEffect } from "react";
+import { useSEO } from "@/hooks/useSEO";
 
 export default function AboutUs() {
+  // SEO optimization for About Us page
+  useSEO({
+    title: "About Us | Blox Fruits Values Calculator Team & Mission",
+    description: "Learn about the Blox Fruits Values Calculator team, our mission to provide accurate trading values, and our commitment to helping players make fair trades in the community.",
+    keywords: "about blox fruits calculator, team, mission, accurate trading values, fair trades, community help, calculator team",
+    canonical: window.location.href
+  });
+
   useEffect(() => {
-    document.title = "About Us - Blox Fruits Values Calculator";
     
     // Add page-specific schema markup
     const script = document.createElement('script');

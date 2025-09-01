@@ -3,9 +3,18 @@ import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft } from "lucide-react";
 import { FruitLibrary } from "@/components/FruitLibrary";
+import { useSEO } from "@/hooks/useSEO";
 
 export default function Values() {
   const [isPermanent, setIsPermanent] = useState(false);
+
+  // SEO optimization for Values page
+  useSEO({
+    title: "Complete Blox Fruits Values Database | Updated Daily Trading Prices",
+    description: "Browse all Blox Fruits with current market values, demand ratings, and trading trends. Complete database with regular and permanent values, filters by rarity and type. Updated daily with authentic trading data.",
+    keywords: "blox fruits values, complete fruit database, blox fruits trading prices, fruit values list, mythical fruits values, legendary fruits values, blox fruits market values",
+    canonical: window.location.href
+  });
 
   const handleFruitClick = (fruitName: string) => {
     // Navigate to fruit detail page

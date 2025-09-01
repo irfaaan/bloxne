@@ -1,7 +1,16 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import { useSEO } from "@/hooks/useSEO";
 
 export default function FAQ() {
+  // SEO optimization for FAQ page
+  useSEO({
+    title: "Blox Fruits Trading FAQ | Common Questions & Answers",
+    description: "Find answers to frequently asked questions about Blox Fruits trading, values, calculator usage, and market trends. Complete trading guide with expert tips and strategies.",
+    keywords: "blox fruits faq, trading questions, fruit values guide, calculator help, trading tips, blox fruits answers, common questions",
+    canonical: window.location.href
+  });
+
   return (
     <div className="container mx-auto px-4 py-8 max-w-4xl">
       <div className="mb-8">

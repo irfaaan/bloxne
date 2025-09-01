@@ -5,6 +5,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Clock, RefreshCw, TrendingUp, TrendingDown, Minus, ExternalLink, Star, Eye } from "lucide-react";
 import { fruitsDatabase, formatValue, type FruitData } from "@/lib/fruitsDatabase";
+import { useSEO } from "@/hooks/useSEO";
 
 interface StockItem extends FruitData {
   stockPrice: number;
@@ -24,6 +25,14 @@ interface StockSection {
 }
 
 export default function Stocks() {
+  // SEO optimization for Stocks page
+  useSEO({
+    title: "Blox Fruits Stock Tracker | Current Shop Inventory & Prices",
+    description: "Track current Blox Fruits stock availability with live prices, discounts, and refresh timers. Monitor Normal Stock and Mirage Island inventory for the best deals.",
+    keywords: "blox fruits stock, fruit shop tracker, current inventory, stock prices, discounts, refresh timer, normal stock, mirage island stock",
+    canonical: window.location.href
+  });
+
   const [timeLeft, setTimeLeft] = useState({
     normal: "0H 30M 47S",
     mirage: "0H 30M 47S"

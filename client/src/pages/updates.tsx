@@ -1,7 +1,16 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { useSEO } from "@/hooks/useSEO";
 
 export default function Updates() {
+  // SEO optimization for Updates page
+  useSEO({
+    title: "Updates & Changelog | Latest Blox Fruits Calculator Features",
+    description: "Stay updated with the latest improvements, new features, and value changes in the Blox Fruits Calculator. View complete changelog and version history.",
+    keywords: "blox fruits calculator updates, changelog, new features, improvements, version history, latest changes, updates log",
+    canonical: window.location.href
+  });
+
   return (
     <div className="container mx-auto px-4 py-8 max-w-4xl">
       <div className="mb-8">

@@ -6,12 +6,21 @@ import { FruitLibrary } from "@/components/FruitLibrary";
 import { Button } from "@/components/ui/button";
 import { fruitsDatabase } from "@/lib/fruitsDatabase";
 import { useToast } from "@/hooks/use-toast";
+import { useSEO } from "@/hooks/useSEO";
 
 export default function Calculator() {
   const [isPermanent, setIsPermanent] = useState(false);
   const [location, navigate] = useLocation();
   const { toast } = useToast();
   const calculatorRef = useRef<TradeCalculatorRef>(null);
+
+  // SEO optimization for Calculator page
+  useSEO({
+    title: "Blox Fruits Values Calculator – Check Fair Trades Instantly",
+    description: "Use our accurate Blox Fruits values calculator to check trade values, compare fruits, and avoid scams. Updated daily with live market data, fair trade analysis, and trending values.",
+    keywords: "blox fruits calculator, fair trade checker, fruit value calculator, trade calculator, blox fruits trading, scam prevention, fruit comparison",
+    canonical: window.location.href
+  });
 
   useEffect(() => {
     // Check for fruit parameter in URL

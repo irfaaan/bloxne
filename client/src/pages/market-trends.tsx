@@ -4,8 +4,17 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft, TrendingUp, TrendingDown, Minus, Clock } from "lucide-react";
 import { fruitsDatabase, formatValue } from "@/lib/fruitsDatabase";
+import { useSEO } from "@/hooks/useSEO";
 
 export default function MarketTrends() {
+  // SEO optimization for Market Trends page
+  useSEO({
+    title: "Blox Fruits Market Trends | Rising, Dropping & Stable Values Analysis",
+    description: "Analyze current Blox Fruits market trends. Find rising values, dropping prices, overpaid opportunities, and undervalued fruits. Live market analysis with trend predictions.",
+    keywords: "blox fruits market trends, rising fruit values, dropping prices, overpaid fruits, undervalued fruits, market analysis, trend predictions, fruit investment",
+    canonical: window.location.href
+  });
+
   // Group fruits by trends
   const trendGroups = {
     Rising: Object.entries(fruitsDatabase).filter(([, fruit]) => fruit.trend === "Rising"),
